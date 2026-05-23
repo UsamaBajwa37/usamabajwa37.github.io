@@ -2,7 +2,9 @@
 *.docx
 *.pdf
 photo_0.jpeg
+photo.jpg
 Linkedin DP.jpg
+Web Pic.png
 
 # Ignore Claude config
 .claude/
