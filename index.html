@@ -322,10 +322,9 @@
       white-space: nowrap;
     }
     .float-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
-    .float-badge-1 { top: 6%;    right: -170px; animation-delay: 0s; }
-    .float-badge-2 { bottom: 16%; left: -160px; animation-delay: -2s; }
-    .float-badge-3 { bottom: -4%; right: -155px; animation-delay: -1s; }
-    .float-badge-4 { top: 22%;   left: -155px; animation-delay: -3s; }
+    .float-badge-1 { top: 8%;   right: -170px; animation-delay: 0s; }
+    .float-badge-2 { top: 38%;  left:  -165px; animation-delay: -2s; }
+    .float-badge-3 { bottom: 8%; right: -165px; animation-delay: -1s; }
     @keyframes float-badge {
       0%,100% { transform: translateY(0px); }
       50% { transform: translateY(-8px); }
@@ -334,11 +333,20 @@
     /* Hero signature name */
     .hero-name-sig {
       font-family: var(--sans); font-style: italic; font-weight: 300;
-      font-size: 26px; letter-spacing: 3px;
-      background: var(--grad); -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent; background-clip: text;
-      text-align: center; margin-top: 8px;
-      opacity: 0.92;
+      font-size: 22px; letter-spacing: 5px;
+      color: rgba(240,237,255,0.55);
+      text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      margin-bottom: 4px;
+    }
+    .hero-name-sig::before,
+    .hero-name-sig::after {
+      content: ''; display: block;
+      width: 36px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,229,204,0.4));
+    }
+    .hero-name-sig::after {
+      background: linear-gradient(90deg, rgba(0,229,204,0.4), transparent);
     }
 
     /* Logo Concepts Review Panel */
@@ -979,22 +987,28 @@
 <!-- ── NAVBAR ── -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
-    <svg viewBox="0 0 108 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 56 46" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="nav-ng" x1="0" y1="0" x2="50" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient id="nav-ng" x1="0" y1="0" x2="56" y2="0" gradientUnits="userSpaceOnUse">
           <stop stop-color="#00e5cc"/><stop offset="1" stop-color="#9b59ff"/>
         </linearGradient>
-        <linearGradient id="nav-tg" x1="50" y1="0" x2="108" y2="38" gradientUnits="userSpaceOnUse">
+        <linearGradient id="nav-tg" x1="30" y1="20" x2="56" y2="46" gradientUnits="userSpaceOnUse">
           <stop stop-color="#00e5cc"/><stop offset="1" stop-color="#ff3eb5"/>
         </linearGradient>
       </defs>
-      <line x1="11" y1="14" x2="20" y2="14" stroke="url(#nav-ng)" stroke-width="1.2" opacity="0.5"/>
-      <line x1="30" y1="14" x2="38" y2="14" stroke="url(#nav-ng)" stroke-width="1.2" opacity="0.5"/>
-      <circle cx="7" cy="14" r="4.5" fill="#00e5cc" opacity="0.9"/>
-      <rect x="20" y="8" width="10" height="12" rx="2.5" stroke="url(#nav-ng)" stroke-width="1.5"/>
-      <polygon points="44,14 38,10 38,18" fill="#9b59ff" opacity="0.9"/>
-      <text x="78" y="21" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="20" fill="url(#nav-tg)" text-anchor="middle" letter-spacing="2">US.</text>
-      <line x1="54" y1="27" x2="102" y2="27" stroke="url(#nav-tg)" stroke-width="1.2"/>
+      <!-- Node line connectors -->
+      <line x1="9"  y1="12" x2="18" y2="12" stroke="url(#nav-ng)" stroke-width="1.2" opacity="0.5"/>
+      <line x1="28" y1="12" x2="36" y2="12" stroke="url(#nav-ng)" stroke-width="1.2" opacity="0.5"/>
+      <!-- Node 1: circle -->
+      <circle cx="6" cy="12" r="4" fill="#00e5cc" opacity="0.9"/>
+      <!-- Node 2: square -->
+      <rect x="18" y="6" width="10" height="12" rx="2.5" stroke="url(#nav-ng)" stroke-width="1.5"/>
+      <!-- Node 3: arrow -->
+      <polygon points="43,12 36,8 36,16" fill="#9b59ff" opacity="0.9"/>
+      <!-- US. below the arrow -->
+      <text x="40" y="33" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="13" fill="url(#nav-tg)" text-anchor="middle" letter-spacing="1.5">US.</text>
+      <!-- underline -->
+      <line x1="29" y1="38" x2="51" y2="38" stroke="url(#nav-tg)" stroke-width="1.2"/>
     </svg>
   </a>
   <ul class="nav-links">
@@ -1078,6 +1092,7 @@
   </div>
 
   <div class="hero-right reveal reveal-delay-2">
+    <div class="hero-name-sig">Usama Safdar</div>
     <div class="photo-universe">
       <div class="photo-ring"></div>
       <div class="photo-orbit-1"></div>
@@ -1089,22 +1104,17 @@
 
       <div class="float-badge float-badge-1">
         <span class="dot" style="background:#00e5cc"></span>
-        The Process Whisperer
+        Data Storyteller
       </div>
       <div class="float-badge float-badge-2">
         <span class="dot" style="background:#9b59ff"></span>
-        Behind every flow
+        Change Agent
       </div>
       <div class="float-badge float-badge-3">
         <span class="dot" style="background:#ff3eb5"></span>
-        Turning disorder into flow
-      </div>
-      <div class="float-badge float-badge-4">
-        <span class="dot" style="background:#f59e0b"></span>
-        Quietly consistent
+        Process Whisperer
       </div>
     </div>
-    <div class="hero-name-sig">Usama Safdar</div>
   </div>
 </section>
 
