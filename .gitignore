@@ -1,0 +1,8 @@
+# Ignore CV and private documents
+*.docx
+*.pdf
+photo_0.jpeg
+Linkedin DP.jpg
+
+# Ignore Claude config
+.claude/
