@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usama Safdar — Operations &amp; Technology Leader</title>
+  <title>Usama Safdar</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
 
   <!-- SEO Meta Tags -->
   <meta name="description" content="Usama Safdar — Operations &amp; Technology Leader based in Sweden. Production Manager at Senior Material Europe. Expert in operational excellence, process transformation, lean manufacturing, and data-driven operations." />
@@ -14,17 +17,17 @@
   <link rel="canonical" href="https://usamasafdar.com" />
 
   <!-- Open Graph (LinkedIn / social previews) -->
-  <meta property="og:title" content="Usama Safdar — Operations &amp; Technology Leader" />
+  <meta property="og:title" content="Usama Safdar" />
   <meta property="og:description" content="Production Manager driving operational excellence through leadership, process transformation, and data intelligence. Based in Eskilstuna, Sweden." />
   <meta property="og:url" content="https://usamasafdar.com" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://usamasafdar.com/photo.jpg" />
+  <meta property="og:image" content="https://usamasafdar.com/photo.png" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Usama Safdar — Operations &amp; Technology Leader" />
+  <meta name="twitter:title" content="Usama Safdar" />
   <meta name="twitter:description" content="Production Manager driving operational excellence through leadership, process transformation, and data intelligence." />
-  <meta name="twitter:image" content="https://usamasafdar.com/photo.jpg" />
+  <meta name="twitter:image" content="https://usamasafdar.com/photo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -328,6 +331,71 @@
     @keyframes float-badge {
       0%,100% { transform: translateY(0px); }
       50% { transform: translateY(-8px); }
+    }
+
+    /* Hero signature name */
+    .hero-name-sig {
+      font-family: var(--sans); font-style: italic; font-weight: 300;
+      font-size: 26px; letter-spacing: 3px;
+      background: var(--grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+      text-align: center; margin-top: 8px;
+      opacity: 0.92;
+    }
+
+    /* Logo Concepts Review Panel */
+    .logo-review {
+      padding: 72px 80px;
+      background: var(--bg2);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .logo-review-hd {
+      text-align: center; margin-bottom: 52px;
+    }
+    .logo-review-label {
+      font-family: var(--mono); font-size: 11px; color: var(--teal);
+      letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .logo-review-title {
+      font-family: var(--sans); font-size: 30px; font-weight: 700;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .logo-review-sub {
+      font-size: 14px; color: var(--slate); line-height: 1.7;
+    }
+    .logo-concepts {
+      display: flex; gap: 28px; justify-content: center; flex-wrap: wrap;
+    }
+    .logo-concept {
+      background: var(--bg3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px; padding: 44px 36px 36px;
+      text-align: center; width: 280px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .logo-concept:hover { border-color: rgba(0,229,204,0.3); transform: translateY(-4px); }
+    .logo-concept svg { width: 88px; height: 88px; margin: 0 auto 28px; display: block; }
+    .logo-concept-id {
+      font-family: var(--mono); font-size: 10px; color: var(--teal);
+      letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase;
+    }
+    .logo-concept-name {
+      font-family: var(--sans); font-size: 17px; font-weight: 700;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .logo-concept-desc {
+      font-size: 13px; color: var(--slate); line-height: 1.7;
+    }
+    .logo-concept-tag {
+      display: inline-block; margin-top: 16px;
+      padding: 4px 12px; border-radius: 20px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+      background: rgba(0,229,204,0.07); color: var(--teal);
+      border: 1px solid rgba(0,229,204,0.15);
+    }
+    @media (max-width: 900px) {
+      .logo-review { padding: 48px 24px; }
+      .logo-concepts { flex-direction: column; align-items: center; }
     }
 
     /* ═══════════════════════════════════════
@@ -937,6 +1005,88 @@
 </div>
 
 <!-- ═══════════════════════════════════════
+     00 · LOGO CONCEPTS (design review — remove after selection)
+═══════════════════════════════════════ -->
+<section class="logo-review" id="logo-review">
+  <div class="logo-review-hd">
+    <div class="logo-review-label">Design Review</div>
+    <div class="logo-review-title">Choose Your Logo</div>
+    <p class="logo-review-sub">Three directions — each built around your initials and brand character.<br>Pick the one that feels most like you, then we'll implement it everywhere.</p>
+  </div>
+  <div class="logo-concepts">
+
+    <!-- ── CONCEPT A : The Ring ── -->
+    <div class="logo-concept">
+      <svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="a-g" x1="0" y1="0" x2="88" y2="88" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00e5cc"/><stop offset="1" stop-color="#9b59ff"/>
+          </linearGradient>
+        </defs>
+        <circle cx="44" cy="44" r="41" stroke="url(#a-g)" stroke-width="2.5"/>
+        <circle cx="44" cy="44" r="34" stroke="url(#a-g)" stroke-width="0.6" opacity="0.2"/>
+        <text x="44" y="55" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="30" fill="url(#a-g)" text-anchor="middle">US.</text>
+      </svg>
+      <div class="logo-concept-id">Concept A</div>
+      <div class="logo-concept-name">The Ring</div>
+      <div class="logo-concept-desc">Clean monogram inside a gradient ring — mirrors the circular photo frame. Minimal, premium, scales perfectly from favicon to display size.</div>
+      <span class="logo-concept-tag">Teal → Purple</span>
+    </div>
+
+    <!-- ── CONCEPT B : Flow Nodes ── -->
+    <div class="logo-concept">
+      <svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="b-g" x1="0" y1="0" x2="88" y2="0" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00e5cc"/><stop offset="1" stop-color="#9b59ff"/>
+          </linearGradient>
+        </defs>
+        <!-- Node connector lines -->
+        <line x1="20" y1="28" x2="35" y2="28" stroke="url(#b-g)" stroke-width="1.5" opacity="0.5"/>
+        <line x1="53" y1="28" x2="64" y2="28" stroke="url(#b-g)" stroke-width="1.5" opacity="0.5"/>
+        <!-- Node 1 — Input -->
+        <circle cx="14" cy="28" r="6" fill="#00e5cc" opacity="0.85"/>
+        <!-- Node 2 — Transform -->
+        <rect x="35" y="20" width="18" height="16" rx="4" stroke="url(#b-g)" stroke-width="2"/>
+        <line x1="44" y1="20" x2="44" y2="36" stroke="url(#b-g)" stroke-width="1" opacity="0.4"/>
+        <!-- Node 3 — Output arrow -->
+        <polygon points="74,28 64,22 64,34" fill="#9b59ff" opacity="0.9"/>
+        <!-- US text -->
+        <text x="44" y="65" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="22" fill="white" text-anchor="middle" letter-spacing="4">US</text>
+        <!-- Underline -->
+        <line x1="16" y1="72" x2="72" y2="72" stroke="url(#b-g)" stroke-width="1.5"/>
+      </svg>
+      <div class="logo-concept-id">Concept B</div>
+      <div class="logo-concept-name">Flow Nodes</div>
+      <div class="logo-concept-desc">Three connected nodes — Input → Transform → Output. A distinctive mark that visually tells your operational transformation story.</div>
+      <span class="logo-concept-tag">Process Narrative</span>
+    </div>
+
+    <!-- ── CONCEPT C : Precision Hex ── -->
+    <div class="logo-concept">
+      <svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="c-g" x1="0" y1="0" x2="88" y2="88" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00e5cc"/><stop offset="1" stop-color="#ff3eb5"/>
+          </linearGradient>
+        </defs>
+        <!-- Outer hexagon -->
+        <polygon points="44,5 80,25 80,63 44,83 8,63 8,25" stroke="url(#c-g)" stroke-width="2"/>
+        <!-- Inner hexagon (subtle) -->
+        <polygon points="44,16 71,31 71,57 44,72 17,57 17,31" stroke="url(#c-g)" stroke-width="0.6" opacity="0.2"/>
+        <!-- US text -->
+        <text x="44" y="54" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="26" fill="url(#c-g)" text-anchor="middle">US</text>
+      </svg>
+      <div class="logo-concept-id">Concept C</div>
+      <div class="logo-concept-name">Precision Hex</div>
+      <div class="logo-concept-desc">The hexagon is engineering's most precise shape — found in aerospace, manufacturing, and nature's most efficient structures. Technical, bold, memorable.</div>
+      <span class="logo-concept-tag">Teal → Pink</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
      01 · HERO
 ═══════════════════════════════════════ -->
 <section id="hero">
@@ -1020,6 +1170,7 @@
         Quietly consistent
       </div>
     </div>
+    <div class="hero-name-sig">Usama Safdar</div>
   </div>
 </section>
 

@@ -1,0 +1,11 @@
+<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="88" y2="88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00e5cc"/>
+      <stop offset="1" stop-color="#9b59ff"/>
+    </linearGradient>
+  </defs>
+  <circle cx="44" cy="44" r="41" stroke="url(#g)" stroke-width="2.5"/>
+  <circle cx="44" cy="44" r="34" stroke="url(#g)" stroke-width="0.6" opacity="0.2"/>
+  <text x="44" y="55" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="30" fill="url(#g)" text-anchor="middle">US.</text>
+</svg>
