@@ -1007,35 +1007,32 @@
 <!-- ── NAVBAR ── -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
-    <svg viewBox="0 0 56 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 76 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="nav-ng" x1="0" y1="0" x2="56" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient id="nav-ng" x1="0" y1="0" x2="76" y2="0" gradientUnits="userSpaceOnUse">
           <stop stop-color="#00e5cc"/><stop offset="1" stop-color="#9b59ff"/>
         </linearGradient>
-        <linearGradient id="nav-tg" x1="30" y1="20" x2="56" y2="46" gradientUnits="userSpaceOnUse">
+        <linearGradient id="nav-tg" x1="22" y1="8" x2="56" y2="32" gradientUnits="userSpaceOnUse">
           <stop stop-color="#00e5cc"/><stop offset="1" stop-color="#ff3eb5"/>
         </linearGradient>
       </defs>
-      <!-- Node line connectors -->
-      <line x1="9"  y1="12" x2="18" y2="12" stroke="url(#nav-ng)" stroke-width="1.2" opacity="0.5"/>
-      <line x1="28" y1="12" x2="36" y2="12" stroke="url(#nav-ng)" stroke-width="1.2" opacity="0.5"/>
-      <!-- Node 1: circle -->
-      <circle cx="6" cy="12" r="4" fill="#00e5cc" opacity="0.9"/>
-      <!-- Node 2: square -->
-      <rect x="18" y="6" width="10" height="12" rx="2.5" stroke="url(#nav-ng)" stroke-width="1.5"/>
-      <!-- Node 3: arrow -->
-      <polygon points="43,12 36,8 36,16" fill="#9b59ff" opacity="0.9"/>
-      <!-- US. below the arrow -->
-      <text x="40" y="33" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="13" fill="url(#nav-tg)" text-anchor="middle" letter-spacing="1.5">US.</text>
-      <!-- underline -->
-      <line x1="29" y1="38" x2="51" y2="38" stroke="url(#nav-tg)" stroke-width="1.2"/>
+      <!-- Connector lines -->
+      <line x1="11" y1="20" x2="22" y2="20" stroke="url(#nav-ng)" stroke-width="1.3" opacity="0.5"/>
+      <line x1="56" y1="20" x2="65" y2="20" stroke="url(#nav-ng)" stroke-width="1.3" opacity="0.5"/>
+      <!-- Node 1: input circle -->
+      <circle cx="7" cy="20" r="5.5" fill="#00e5cc" opacity="0.9"/>
+      <!-- Node 2: transformer — larger rect holding US. -->
+      <rect x="22" y="6" width="34" height="28" rx="5" stroke="url(#nav-ng)" stroke-width="1.8"/>
+      <text x="39" y="20" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="13" fill="url(#nav-tg)" text-anchor="middle" dominant-baseline="central" letter-spacing="1">US.</text>
+      <!-- Node 3: output arrow -->
+      <polygon points="74,20 65,14.5 65,25.5" fill="#9b59ff" opacity="0.9"/>
     </svg>
   </a>
   <ul class="nav-links">
     <li><a href="#manifesto">Philosophy</a></li>
     <li><a href="#impact">Impact</a></li>
-    <li><a href="#command">Systems</a></li>
     <li><a href="#missions">Missions</a></li>
+    <li><a href="#command">Systems</a></li>
     <li><a href="#blueprint">Blueprint</a></li>
     <li><a href="#vision">Vision</a></li>
     <li><a href="#contact" class="nav-cta">Exchange Ideas</a></li>
@@ -1047,8 +1044,8 @@
   <button class="mobile-close" onclick="document.getElementById('drawer').classList.remove('open')">✕</button>
   <a href="#manifesto" onclick="document.getElementById('drawer').classList.remove('open')">Philosophy</a>
   <a href="#impact" onclick="document.getElementById('drawer').classList.remove('open')">Impact</a>
-  <a href="#command" onclick="document.getElementById('drawer').classList.remove('open')">Systems</a>
   <a href="#missions" onclick="document.getElementById('drawer').classList.remove('open')">Missions</a>
+  <a href="#command" onclick="document.getElementById('drawer').classList.remove('open')">Systems</a>
   <a href="#blueprint" onclick="document.getElementById('drawer').classList.remove('open')">Blueprint</a>
   <a href="#vision" onclick="document.getElementById('drawer').classList.remove('open')">Vision</a>
   <a href="#contact" onclick="document.getElementById('drawer').classList.remove('open')">Exchange Ideas</a>
@@ -1263,143 +1260,7 @@
 </section>
 
 <!-- ═══════════════════════════════════════
-     04 · COMMAND CENTER
-═══════════════════════════════════════ -->
-<section id="command">
-  <div class="command-inner">
-    <div class="command-header">
-      <div class="section-label reveal">05 — Operating Systems</div>
-      <h2 class="section-heading reveal reveal-delay-1">The <span class="accent2">Command Center</span></h2>
-      <p class="section-sub reveal reveal-delay-2">Four interconnected capability stacks — the operating system I bring to every factory floor.</p>
-    </div>
-
-    <div class="dashboard-chrome reveal reveal-delay-2">
-      <div class="chrome-titlebar">
-        <div class="chrome-dot red"></div>
-        <div class="chrome-dot yellow"></div>
-        <div class="chrome-dot green"></div>
-        <span class="chrome-title">USAMA_OS · CAPABILITY_MATRIX_v2.6</span>
-        <div class="chrome-status">
-          <div class="chrome-status-dot"></div>
-          ALL SYSTEMS ONLINE
-        </div>
-      </div>
-
-      <div class="dashboard-grid">
-        <!-- Panel 1: Operations Architecture -->
-        <div class="dash-panel">
-          <div class="dash-panel-header">
-            <div class="dash-panel-title">⚙ Operations Architecture</div>
-            <div class="dash-panel-ping"></div>
-          </div>
-          <div class="skill-rows">
-            <div class="skill-row">
-              <div class="skill-row-top"><span class="skill-name">Lean / 5S / Kaizen</span><span class="skill-pct">95%</span></div>
-              <div class="skill-bar"><div class="skill-fill teal" style="--pct:95%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span class="skill-name">OEE & Performance KPIs</span><span class="skill-pct">92%</span></div>
-              <div class="skill-bar"><div class="skill-fill teal" style="--pct:92%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span class="skill-name">8D / Root Cause Analysis</span><span class="skill-pct">90%</span></div>
-              <div class="skill-bar"><div class="skill-fill teal" style="--pct:90%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span class="skill-name">Capacity & Demand Planning</span><span class="skill-pct">87%</span></div>
-              <div class="skill-bar"><div class="skill-fill teal" style="--pct:87%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span class="skill-name">Supply Chain Operations</span><span class="skill-pct">80%</span></div>
-              <div class="skill-bar"><div class="skill-fill teal" style="--pct:80%"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Panel 2: Technology & Analytics -->
-        <div class="dash-panel">
-          <div class="dash-panel-header">
-            <div class="dash-panel-title">◈ Technology & Analytics</div>
-            <div class="dash-panel-ping purple"></div>
-          </div>
-          <div style="font-size:12px;color:var(--slate2);font-family:var(--mono);margin-bottom:14px;letter-spacing:0.5px;">Tools I use to build operational intelligence</div>
-          <div class="tag-cloud">
-            <span class="skill-tag p">Python</span>
-            <span class="skill-tag p">SQL</span>
-            <span class="skill-tag p">Power BI</span>
-            <span class="skill-tag p">Machine Learning</span>
-            <span class="skill-tag p">NLP / BERT</span>
-            <span class="skill-tag p">Pandas / Sklearn</span>
-            <span class="skill-tag p">Statistical Analysis</span>
-            <span class="skill-tag p">Data Visualization</span>
-            <span class="skill-tag p">Predictive Modeling</span>
-            <span class="skill-tag p">Excel / Power Query</span>
-            <span class="skill-tag p">Process Simulation</span>
-            <span class="skill-tag p">Operational Analytics</span>
-          </div>
-        </div>
-
-        <!-- Panel 3: Transformation Toolkit -->
-        <div class="dash-panel">
-          <div class="dash-panel-header">
-            <div class="dash-panel-title">⬡ Transformation Toolkit</div>
-            <div class="dash-panel-ping pink"></div>
-          </div>
-          <div class="tag-cloud">
-            <span class="skill-tag pk">Process Redesign</span>
-            <span class="skill-tag pk">Change Management</span>
-            <span class="skill-tag pk">Lean Six Sigma</span>
-            <span class="skill-tag pk">Operational Excellence</span>
-            <span class="skill-tag t">ERP / MES Systems</span>
-            <span class="skill-tag t">Digital Reporting</span>
-            <span class="skill-tag t">Automation Strategy</span>
-            <span class="skill-tag t">Performance Management</span>
-            <span class="skill-tag p">Supply Chain Optimization</span>
-            <span class="skill-tag p">Reverse Logistics</span>
-            <span class="skill-tag p">Service Operations</span>
-            <span class="skill-tag p">Continuous Improvement</span>
-          </div>
-        </div>
-
-        <!-- Panel 4: Leadership -->
-        <div class="dash-panel">
-          <div class="dash-panel-header">
-            <div class="dash-panel-title">◎ Leadership OS</div>
-            <div class="dash-panel-ping amber"></div>
-          </div>
-          <div class="skill-rows">
-            <div class="skill-row">
-              <div class="skill-row-top"><span class="skill-name">Cross-functional Leadership</span><span class="skill-pct">92%</span></div>
-              <div class="skill-bar"><div class="skill-fill amber" style="--pct:92%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span class="skill-name">Change Management</span><span class="skill-pct">85%</span></div>
-              <div class="skill-bar"><div class="skill-fill amber" style="--pct:85%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span class="skill-name">Operations Strategy</span><span class="skill-pct">88%</span></div>
-              <div class="skill-bar"><div class="skill-fill amber" style="--pct:88%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span class="skill-name">Stakeholder Management</span><span class="skill-pct">86%</span></div>
-              <div class="skill-bar"><div class="skill-fill amber" style="--pct:86%"></div></div>
-            </div>
-          </div>
-          <div class="tag-cloud" style="margin-top:14px">
-            <span class="skill-tag a">Swedish</span>
-            <span class="skill-tag a">English</span>
-            <span class="skill-tag a">Urdu/Punjabi</span>
-            <span class="skill-tag">Scrum / Agile</span>
-            <span class="skill-tag">PMI Methods</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════
-     06 · MISSION LOG
+     05 · MISSION LOG
 ═══════════════════════════════════════ -->
 <section id="missions">
   <div class="missions-inner">
@@ -1545,7 +1406,83 @@
 </section>
 
 <!-- ═══════════════════════════════════════
-     06b · INDUSTRY 4.0 BLUEPRINT
+     06 · COMMAND CENTER
+═══════════════════════════════════════ -->
+<section id="command">
+  <div class="command-inner">
+    <div class="command-header">
+      <div class="section-label reveal">06 — Operating Systems</div>
+      <h2 class="section-heading reveal reveal-delay-1">The <span class="accent2">Command Center</span></h2>
+      <p class="section-sub reveal reveal-delay-2">Four interconnected capability stacks — the operating system I bring to every factory floor.</p>
+    </div>
+
+    <div class="dashboard-chrome reveal reveal-delay-2">
+      <div class="chrome-titlebar">
+        <div class="chrome-dot red"></div>
+        <div class="chrome-dot yellow"></div>
+        <div class="chrome-dot green"></div>
+        <span class="chrome-title">USAMA_OS · CAPABILITY_MATRIX_v2.6</span>
+        <div class="chrome-status">
+          <div class="chrome-status-dot"></div>
+          ALL SYSTEMS ONLINE
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <div class="dash-panel-title">⚙ Operations Architecture</div>
+            <div class="dash-panel-ping"></div>
+          </div>
+          <div class="skill-rows">
+            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Lean / 5S / Kaizen</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:95%"></div></div></div>
+            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">OEE & Performance KPIs</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:92%"></div></div></div>
+            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">8D / Root Cause Analysis</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:90%"></div></div></div>
+            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Capacity & Demand Planning</span><span class="skill-pct">87%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:87%"></div></div></div>
+            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Supply Chain Operations</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:80%"></div></div></div>
+          </div>
+        </div>
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <div class="dash-panel-title">◈ Technology & Analytics</div>
+            <div class="dash-panel-ping purple"></div>
+          </div>
+          <div style="font-size:12px;color:var(--slate2);font-family:var(--mono);margin-bottom:14px;letter-spacing:0.5px;">Tools I use to build operational intelligence</div>
+          <div class="tag-cloud">
+            <span class="skill-tag p">Python</span><span class="skill-tag p">SQL</span><span class="skill-tag p">Power BI</span><span class="skill-tag p">Machine Learning</span><span class="skill-tag p">NLP / BERT</span><span class="skill-tag p">Pandas / Sklearn</span><span class="skill-tag p">Statistical Analysis</span><span class="skill-tag p">Data Visualization</span><span class="skill-tag p">Predictive Modeling</span><span class="skill-tag p">Excel / Power Query</span><span class="skill-tag p">Process Simulation</span><span class="skill-tag p">Operational Analytics</span>
+          </div>
+        </div>
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <div class="dash-panel-title">⬡ Transformation Toolkit</div>
+            <div class="dash-panel-ping pink"></div>
+          </div>
+          <div class="tag-cloud">
+            <span class="skill-tag pk">Process Redesign</span><span class="skill-tag pk">Change Management</span><span class="skill-tag pk">Lean Six Sigma</span><span class="skill-tag pk">Operational Excellence</span><span class="skill-tag t">ERP / MES Systems</span><span class="skill-tag t">Digital Reporting</span><span class="skill-tag t">Automation Strategy</span><span class="skill-tag t">Performance Management</span><span class="skill-tag p">Supply Chain Optimization</span><span class="skill-tag p">Reverse Logistics</span><span class="skill-tag p">Service Operations</span><span class="skill-tag p">Continuous Improvement</span>
+          </div>
+        </div>
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <div class="dash-panel-title">◎ Leadership OS</div>
+            <div class="dash-panel-ping amber"></div>
+          </div>
+          <div class="skill-rows">
+            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Cross-functional Leadership</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill amber" style="--pct:92%"></div></div></div>
+            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Change Management</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill amber" style="--pct:85%"></div></div></div>
+            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Operations Strategy</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill amber" style="--pct:88%"></div></div></div>
+            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Stakeholder Management</span><span class="skill-pct">86%</span></div><div class="skill-bar"><div class="skill-fill amber" style="--pct:86%"></div></div></div>
+          </div>
+          <div class="tag-cloud" style="margin-top:14px">
+            <span class="skill-tag a">Swedish</span><span class="skill-tag a">English</span><span class="skill-tag a">Urdu/Punjabi</span><span class="skill-tag">Scrum / Agile</span><span class="skill-tag">PMI Methods</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     07 · INDUSTRY 4.0 BLUEPRINT
 ═══════════════════════════════════════ -->
 <section id="blueprint">
   <div class="blueprint-inner">
