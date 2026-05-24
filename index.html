@@ -347,83 +347,43 @@
     .name-demo-wrap { min-height: 52px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
     .name-demo-caption { font-size: 12px; color: var(--slate2); line-height: 1.6; }
 
-    /* Style 1 — Typewriter */
-    .ns-typewriter {
+    /* ① Scramble Decode */
+    .ns-scramble {
       font-family: var(--mono); font-size: 26px; font-weight: 500;
-      color: var(--white); letter-spacing: 4px;
-      overflow: hidden; white-space: nowrap; display: inline-block;
-      border-right: 2px solid var(--teal);
-      width: 0;
-      animation: ns-type 2.8s steps(12) 0.5s forwards, ns-blink 0.75s step-end infinite;
-    }
-    @keyframes ns-type  { to { width: 12ch; } }
-    @keyframes ns-blink { 50% { border-color: transparent; } }
-
-    /* Style 2 — Glitch */
-    .ns-glitch {
-      font-family: var(--sans); font-size: 30px; font-weight: 700;
-      color: var(--white); letter-spacing: 5px;
-      position: relative; display: inline-block;
-    }
-    .ns-glitch::before, .ns-glitch::after {
-      content: attr(data-text); position: absolute; left: 0; top: 0;
-      width: 100%; height: 100%; overflow: hidden;
-    }
-    .ns-glitch::before {
-      color: #00e5cc; animation: ng1 5s infinite;
-      clip-path: polygon(0 15%, 100% 15%, 100% 40%, 0 40%);
-    }
-    .ns-glitch::after {
-      color: #ff3eb5; animation: ng2 5s infinite;
-      clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
-    }
-    @keyframes ng1 { 0%,88%,100%{transform:none;opacity:0} 90%{transform:translate(-4px,1px);opacity:0.9} 93%{transform:translate(4px,-1px);opacity:0} }
-    @keyframes ng2 { 0%,88%,100%{transform:none;opacity:0} 92%{transform:translate(4px,2px);opacity:0.9} 95%{transform:translate(-4px,-2px);opacity:0} }
-
-    /* Style 3 — 3D Depth */
-    .ns-3d {
-      font-family: var(--sans); font-size: 30px; font-weight: 800;
-      letter-spacing: 5px; color: #f0edff;
+      color: var(--teal); letter-spacing: 5px; min-height: 40px;
       display: inline-block;
-      text-shadow:
-        1px 1px 0 rgba(0,229,204,0.7),
-        2px 2px 0 rgba(0,229,204,0.5),
-        3px 3px 0 rgba(0,229,204,0.35),
-        4px 4px 0 rgba(0,229,204,0.2),
-        5px 5px 0 rgba(0,229,204,0.1),
-        6px 6px 18px rgba(0,229,204,0.15);
     }
 
-    /* Style 4 — Outline + Filled */
-    .ns-split {
-      font-family: var(--sans); font-size: 30px; font-weight: 800;
-      letter-spacing: 4px; display: inline-flex; gap: 12px; align-items: baseline;
-    }
-    .ns-split .ns-outline {
-      -webkit-text-stroke: 1.5px #00e5cc;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-    }
-    .ns-split .ns-filled {
-      background: linear-gradient(135deg, #9b59ff, #ff3eb5);
+    /* ② Gradient Typewriter */
+    .ns-gradtype-wrap { display: inline-flex; align-items: center; gap: 6px; }
+    .ns-gradtype {
+      font-family: var(--sans); font-size: 30px; font-weight: 700;
+      letter-spacing: 5px; min-height: 40px;
+      background: linear-gradient(90deg, #00e5cc 0%, #9b59ff 55%, #ff3eb5 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
+    .ns-gradcursor {
+      width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+      background: var(--teal);
+      box-shadow: 0 0 8px rgba(0,229,204,0.9), 0 0 20px rgba(0,229,204,0.5);
+      animation: ns-dot-blink 0.7s step-end infinite;
+    }
+    @keyframes ns-dot-blink { 50% { opacity: 0; } }
 
-    /* Style 5 — Neon Glow */
-    .ns-neon {
-      font-family: var(--sans); font-size: 28px; font-weight: 300;
-      letter-spacing: 7px; color: #00e5cc; font-style: italic;
-      text-shadow:
-        0 0 6px rgba(0,229,204,1),
-        0 0 20px rgba(0,229,204,0.7),
-        0 0 40px rgba(0,229,204,0.4),
-        0 0 80px rgba(0,229,204,0.2);
-      animation: ns-pulse 3s ease-in-out infinite;
+    /* ③ Letter Drop */
+    .ns-letterpop {
+      font-family: var(--sans); font-size: 30px; font-weight: 700;
+      letter-spacing: 4px; min-height: 40px; display: inline-block;
     }
-    @keyframes ns-pulse {
-      0%,100% { text-shadow: 0 0 6px rgba(0,229,204,1),0 0 20px rgba(0,229,204,0.7),0 0 40px rgba(0,229,204,0.4),0 0 80px rgba(0,229,204,0.2); }
-      50%      { text-shadow: 0 0 10px rgba(0,229,204,1),0 0 30px rgba(0,229,204,0.9),0 0 60px rgba(0,229,204,0.6),0 0 100px rgba(0,229,204,0.3); }
+    .lp-char {
+      display: inline-block; opacity: 0;
+      transform: translateY(-22px) scale(0.5);
+      animation: lp-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      background: linear-gradient(135deg, #00e5cc, #9b59ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
+    @keyframes lp-in { to { opacity: 1; transform: translateY(0) scale(1); } }
+
     @media (max-width: 900px) { .name-review { padding: 48px 24px; } }
 
     /* Hero signature name */
@@ -1135,57 +1095,97 @@
 ═══════════════════════════════════════ -->
 <section class="name-review" id="name-review">
   <div class="name-review-hd">
-    <div class="name-review-label">Design Review</div>
-    <div class="name-review-title">Pick a Name Style</div>
-    <p class="name-review-sub">All five are live — watch the animations, then tell me the number you prefer.</p>
+    <div class="name-review-label">Design Review — Upgraded Typing Styles</div>
+    <div class="name-review-title">Three Unique Typing Variations</div>
+    <p class="name-review-sub">Click any card to replay the animation. Tell me ①, ② or ③.</p>
   </div>
   <div class="name-demos">
 
-    <div class="name-demo-box">
-      <div class="name-demo-id">① Typewriter — types itself out with a blinking cursor</div>
+    <!-- ① Scramble Decode -->
+    <div class="name-demo-box" onclick="runScramble()" style="cursor:pointer">
+      <div class="name-demo-id">① Decode — scrambles through random characters before locking into your name &nbsp;▶ click to replay</div>
       <div class="name-demo-wrap">
-        <span class="ns-typewriter">Usama Safdar</span>
+        <span class="ns-scramble" id="demo-scramble">&nbsp;</span>
       </div>
-      <div class="name-demo-caption">Clean, monospaced, feels like the page is introducing you in real time.</div>
+      <div class="name-demo-caption">Each letter cycles through random characters then snaps into place — like a system decoding your identity. Techy, sharp, completely unique.</div>
     </div>
 
-    <div class="name-demo-box">
-      <div class="name-demo-id">② Glitch — occasionally breaks apart in teal and pink, then snaps back</div>
+    <!-- ② Gradient Typewriter + Glowing Dot Cursor -->
+    <div class="name-demo-box" onclick="runGradType()" style="cursor:pointer">
+      <div class="name-demo-id">② Gradient Type — types in a teal→purple→pink colour sweep with a glowing dot cursor &nbsp;▶ click to replay</div>
       <div class="name-demo-wrap">
-        <span class="ns-glitch" data-text="Usama Safdar">Usama Safdar</span>
-      </div>
-      <div class="name-demo-caption">Bold and techy. The glitch triggers every few seconds — subtle enough to feel premium, not distracting.</div>
-    </div>
-
-    <div class="name-demo-box">
-      <div class="name-demo-id">③ 3D Depth — layered teal shadow creates a physical extrusion behind the letters</div>
-      <div class="name-demo-wrap">
-        <span class="ns-3d">Usama Safdar</span>
-      </div>
-      <div class="name-demo-caption">No animation — just pure typographic depth. Looks like the name is lifted off the page.</div>
-    </div>
-
-    <div class="name-demo-box">
-      <div class="name-demo-id">④ Outline + Filled — first name hollow in teal, last name solid in purple–pink</div>
-      <div class="name-demo-wrap">
-        <span class="ns-split">
-          <span class="ns-outline">Usama</span>
-          <span class="ns-filled">Safdar</span>
+        <span class="ns-gradtype-wrap">
+          <span class="ns-gradtype" id="demo-gradtype"></span>
+          <span class="ns-gradcursor" id="demo-gradcursor"></span>
         </span>
       </div>
-      <div class="name-demo-caption">Editorial, magazine-cover feel. Two halves of the same name in contrasting styles.</div>
+      <div class="name-demo-caption">Same typing feel — but the text reveals in a full colour gradient and the cursor is a pulsing teal dot instead of a plain line.</div>
     </div>
 
-    <div class="name-demo-box">
-      <div class="name-demo-id">⑤ Neon Glow — soft teal glow that slowly pulses, like a neon sign</div>
+    <!-- ③ Letter Pop -->
+    <div class="name-demo-box" onclick="runLetterPop()" style="cursor:pointer">
+      <div class="name-demo-id">③ Letter Drop — each letter falls in one by one with a bounce, in gradient colour &nbsp;▶ click to replay</div>
       <div class="name-demo-wrap">
-        <span class="ns-neon">Usama Safdar</span>
+        <span class="ns-letterpop" id="demo-letterpop"></span>
       </div>
-      <div class="name-demo-caption">Light, italic, glowing. Quiet confidence — the name radiates without shouting.</div>
+      <div class="name-demo-caption">No cursor, no scramble — just letters landing individually with a soft elastic bounce. Elegant, cinematic, feels designed.</div>
     </div>
 
   </div>
 </section>
+
+<script>
+  const NAME = 'Usama Safdar';
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#@$&0123456789';
+
+  function runScramble() {
+    const el = document.getElementById('demo-scramble');
+    let step = 0;
+    clearInterval(el._iv);
+    el._iv = setInterval(() => {
+      el.textContent = NAME.split('').map((c, i) => {
+        if (c === ' ') return ' ';
+        if (i < step) return c;
+        return CHARS[Math.floor(Math.random() * CHARS.length)];
+      }).join('');
+      step += 0.35;
+      if (step >= NAME.length) { el.textContent = NAME; clearInterval(el._iv); }
+    }, 50);
+  }
+
+  function runGradType() {
+    const el = document.getElementById('demo-gradtype');
+    const cur = document.getElementById('demo-gradcursor');
+    el.textContent = '';
+    cur.style.display = 'inline-block';
+    let i = 0;
+    clearInterval(el._iv);
+    el._iv = setInterval(() => {
+      el.textContent = NAME.slice(0, i);
+      i++;
+      if (i > NAME.length) {
+        clearInterval(el._iv);
+        setTimeout(() => { cur.style.display = 'none'; }, 1800);
+      }
+    }, 110);
+  }
+
+  function runLetterPop() {
+    const el = document.getElementById('demo-letterpop');
+    el.innerHTML = NAME.split('').map((c, i) =>
+      c === ' '
+        ? '<span style="display:inline-block;width:0.28em"> </span>'
+        : `<span class="lp-char" style="animation-delay:${i * 0.075}s">${c}</span>`
+    ).join('');
+  }
+
+  // Auto-run all on load
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(runScramble, 500);
+    setTimeout(runGradType, 500);
+    setTimeout(runLetterPop, 500);
+  });
+</script>
 
 <!-- ═══════════════════════════════════════
      01 · HERO
