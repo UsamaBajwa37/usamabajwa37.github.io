@@ -347,43 +347,6 @@
     .name-demo-wrap { min-height: 52px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
     .name-demo-caption { font-size: 12px; color: var(--slate2); line-height: 1.6; }
 
-    /* ① Scramble Decode */
-    .ns-scramble {
-      font-family: var(--mono); font-size: 26px; font-weight: 500;
-      color: var(--teal); letter-spacing: 5px; min-height: 40px;
-      display: inline-block;
-    }
-
-    /* ② Gradient Typewriter */
-    .ns-gradtype-wrap { display: inline-flex; align-items: center; gap: 6px; }
-    .ns-gradtype {
-      font-family: var(--sans); font-size: 30px; font-weight: 700;
-      letter-spacing: 5px; min-height: 40px;
-      background: linear-gradient(90deg, #00e5cc 0%, #9b59ff 55%, #ff3eb5 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .ns-gradcursor {
-      width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
-      background: var(--teal);
-      box-shadow: 0 0 8px rgba(0,229,204,0.9), 0 0 20px rgba(0,229,204,0.5);
-      animation: ns-dot-blink 0.7s step-end infinite;
-    }
-    @keyframes ns-dot-blink { 50% { opacity: 0; } }
-
-    /* ③ Letter Drop */
-    .ns-letterpop {
-      font-family: var(--sans); font-size: 30px; font-weight: 700;
-      letter-spacing: 4px; min-height: 40px; display: inline-block;
-    }
-    .lp-char {
-      display: inline-block; opacity: 0;
-      transform: translateY(-22px) scale(0.5);
-      animation: lp-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      background: linear-gradient(135deg, #00e5cc, #9b59ff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    @keyframes lp-in { to { opacity: 1; transform: translateY(0) scale(1); } }
-
     @media (max-width: 900px) { .name-review { padding: 48px 24px; } }
 
     /* Hero signature name */
@@ -1089,103 +1052,6 @@
   <a href="#vision" onclick="document.getElementById('drawer').classList.remove('open')">Vision</a>
   <a href="#contact" onclick="document.getElementById('drawer').classList.remove('open')">Exchange Ideas</a>
 </div>
-
-<!-- ═══════════════════════════════════════
-     00 · NAME STYLE REVIEW (remove after selection)
-═══════════════════════════════════════ -->
-<section class="name-review" id="name-review">
-  <div class="name-review-hd">
-    <div class="name-review-label">Design Review — Upgraded Typing Styles</div>
-    <div class="name-review-title">Three Unique Typing Variations</div>
-    <p class="name-review-sub">Click any card to replay the animation. Tell me ①, ② or ③.</p>
-  </div>
-  <div class="name-demos">
-
-    <!-- ① Scramble Decode -->
-    <div class="name-demo-box" onclick="runScramble()" style="cursor:pointer">
-      <div class="name-demo-id">① Decode — scrambles through random characters before locking into your name &nbsp;▶ click to replay</div>
-      <div class="name-demo-wrap">
-        <span class="ns-scramble" id="demo-scramble">&nbsp;</span>
-      </div>
-      <div class="name-demo-caption">Each letter cycles through random characters then snaps into place — like a system decoding your identity. Techy, sharp, completely unique.</div>
-    </div>
-
-    <!-- ② Gradient Typewriter + Glowing Dot Cursor -->
-    <div class="name-demo-box" onclick="runGradType()" style="cursor:pointer">
-      <div class="name-demo-id">② Gradient Type — types in a teal→purple→pink colour sweep with a glowing dot cursor &nbsp;▶ click to replay</div>
-      <div class="name-demo-wrap">
-        <span class="ns-gradtype-wrap">
-          <span class="ns-gradtype" id="demo-gradtype"></span>
-          <span class="ns-gradcursor" id="demo-gradcursor"></span>
-        </span>
-      </div>
-      <div class="name-demo-caption">Same typing feel — but the text reveals in a full colour gradient and the cursor is a pulsing teal dot instead of a plain line.</div>
-    </div>
-
-    <!-- ③ Letter Pop -->
-    <div class="name-demo-box" onclick="runLetterPop()" style="cursor:pointer">
-      <div class="name-demo-id">③ Letter Drop — each letter falls in one by one with a bounce, in gradient colour &nbsp;▶ click to replay</div>
-      <div class="name-demo-wrap">
-        <span class="ns-letterpop" id="demo-letterpop"></span>
-      </div>
-      <div class="name-demo-caption">No cursor, no scramble — just letters landing individually with a soft elastic bounce. Elegant, cinematic, feels designed.</div>
-    </div>
-
-  </div>
-</section>
-
-<script>
-  const NAME = 'Usama Safdar';
-  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#@$&0123456789';
-
-  function runScramble() {
-    const el = document.getElementById('demo-scramble');
-    let step = 0;
-    clearInterval(el._iv);
-    el._iv = setInterval(() => {
-      el.textContent = NAME.split('').map((c, i) => {
-        if (c === ' ') return ' ';
-        if (i < step) return c;
-        return CHARS[Math.floor(Math.random() * CHARS.length)];
-      }).join('');
-      step += 0.35;
-      if (step >= NAME.length) { el.textContent = NAME; clearInterval(el._iv); }
-    }, 50);
-  }
-
-  function runGradType() {
-    const el = document.getElementById('demo-gradtype');
-    const cur = document.getElementById('demo-gradcursor');
-    el.textContent = '';
-    cur.style.display = 'inline-block';
-    let i = 0;
-    clearInterval(el._iv);
-    el._iv = setInterval(() => {
-      el.textContent = NAME.slice(0, i);
-      i++;
-      if (i > NAME.length) {
-        clearInterval(el._iv);
-        setTimeout(() => { cur.style.display = 'none'; }, 1800);
-      }
-    }, 110);
-  }
-
-  function runLetterPop() {
-    const el = document.getElementById('demo-letterpop');
-    el.innerHTML = NAME.split('').map((c, i) =>
-      c === ' '
-        ? '<span style="display:inline-block;width:0.28em"> </span>'
-        : `<span class="lp-char" style="animation-delay:${i * 0.075}s">${c}</span>`
-    ).join('');
-  }
-
-  // Auto-run all on load
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(runScramble, 500);
-    setTimeout(runGradType, 500);
-    setTimeout(runLetterPop, 500);
-  });
-</script>
 
 <!-- ═══════════════════════════════════════
      01 · HERO
@@ -2271,6 +2137,27 @@
       photoUniverse.style.transition = 'transform 0.5s ease';
     });
   }
+
+  // ── Hero name scramble decode reveal
+  (function() {
+    const el = document.querySelector('.hero-name-sig');
+    if (!el) return;
+    const final = 'Usama Safdar';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#@$&';
+    el.textContent = '';
+    let step = 0;
+    setTimeout(() => {
+      const iv = setInterval(() => {
+        el.textContent = final.split('').map((c, i) => {
+          if (c === ' ') return ' ';
+          if (i < step) return c;
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join('');
+        step += 0.3;
+        if (step >= final.length) { el.textContent = final; clearInterval(iv); }
+      }, 45);
+    }, 400);
+  })();
 </script>
 </body>
 </html>
