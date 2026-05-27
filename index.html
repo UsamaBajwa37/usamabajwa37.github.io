@@ -58,7 +58,7 @@
       --ease:     cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; font-size: 16px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.18) transparent; }
 
     body {
       background:
@@ -95,16 +95,77 @@
     }
 
     ::selection { background: rgba(0,229,204,0.15); color: var(--teal); }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: rgba(15,14,26,0.6); }
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, var(--teal) 0%, var(--purple) 100%);
-      border-radius: 4px;
-      border: 1px solid rgba(0,229,204,0.15);
+    /* Minimal grey native scrollbar — character sits beside it */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.32); }
+
+    /* ── WALKING CHARACTER — compact left-side host ── */
+    .char-bar {
+      position: fixed; left: 14px; top: 0; bottom: 0;
+      width: 42px; z-index: 9999; pointer-events: none;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(180deg, var(--teal) 0%, var(--pink) 100%);
+    .char-track {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      top: 70px; bottom: 8px; width: 20px; background: transparent;
+      pointer-events: all; cursor: pointer;
     }
+    .char-wrap {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      pointer-events: all; cursor: grab;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 0 5px rgba(6,4,16,0.85)) drop-shadow(0 0 10px rgba(0,229,204,0.12));
+    }
+    .char-wrap:hover { filter: drop-shadow(0 0 5px rgba(6,4,16,0.85)) drop-shadow(0 0 10px rgba(0,229,204,0.4)); }
+    .char-wrap:active { cursor: grabbing; }
+
+    /* ── Speech bubble — Apple-style glass pill, anchored LEFT so it never clips ── */
+    .char-bubble {
+      position: absolute;
+      bottom: calc(100% + 11px);
+      left: 0;                              /* anchors to character's left edge */
+      transform: translateY(-6px);
+      background: rgba(10,8,22,0.93);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-top-color: rgba(255,255,255,0.14);
+      border-radius: 11px;
+      padding: 7px 11px;
+      width: max-content; max-width: 164px;
+      white-space: normal; line-height: 1.55;
+      font-family: -apple-system, BlinkMacSystemFont, var(--mono);
+      font-size: 10px; font-weight: 400; letter-spacing: 0.15px;
+      color: var(--teal);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.32s ease, transform 0.32s ease;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.55),
+                  inset 0 1px 0 rgba(255,255,255,0.04);
+      z-index: 10000;
+    }
+    /* Tail points DOWN — positioned under the character centre (17px from left) */
+    .char-bubble::after {
+      content: ''; position: absolute;
+      bottom: -5px; left: 17px;
+      border-left: 5px solid transparent; border-right: 5px solid transparent;
+      border-top: 5px solid rgba(0,229,204,0.28);
+    }
+    .char-bubble.show { opacity: 1; transform: translateY(0); }
+
+    /* Smart flip — bubble below when character near the top */
+    .char-wrap.bubble-below .char-bubble {
+      bottom: auto; top: calc(100% + 11px);
+      transform: translateY(6px);
+    }
+    .char-wrap.bubble-below .char-bubble.show { transform: translateY(0); }
+    .char-wrap.bubble-below .char-bubble::after {
+      bottom: auto; top: -5px;
+      border-top: none;
+      border-bottom: 5px solid rgba(0,229,204,0.28);
+    }
+    @media (max-width: 900px) { .char-bar { display: none; } }
+
 
     /* ── PROGRESS BAR ── */
     #progress {
@@ -181,7 +242,7 @@
        01 · HERO
     ═══════════════════════════════════════ */
     #hero {
-      min-height: 100vh;
+      min-height: 100vh; position: relative;
       display: grid; grid-template-columns: 1fr 1fr;
       align-items: center; gap: 60px;
       padding: 110px 80px 80px;
@@ -1141,6 +1202,7 @@
       </div>
     </div>
   </div>
+
 </section>
 
 <!-- ═══════════════════════════════════════
@@ -1999,6 +2061,107 @@
   </div>
 </section>
 
+<!-- ── WALKING CHARACTER ── -->
+<div class="char-bar" id="charBar">
+  <div class="char-track"></div>
+  <div class="char-wrap" id="charWrap">
+    <div class="char-bubble" id="charBubble">👋 Hey there!</div>
+    <svg width="34" height="56" viewBox="0 0 34 56" fill="none">
+      <defs>
+        <radialGradient id="charHG" cx="35%" cy="28%" r="65%">
+          <stop offset="0%"   stop-color="rgba(255,255,255,0.2)"/>
+          <stop offset="65%"  stop-color="rgba(255,255,255,0)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0.28)"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Section glow — very faint backdrop behind whole character, colour changes per section -->
+      <rect id="charAura" x="2" y="3" width="30" height="51" rx="12"
+            fill="rgba(0,229,204,0.07)" opacity="0.18"/>
+      <!-- Ground glow -->
+      <ellipse id="charGlow" cx="17" cy="54" rx="10" ry="2.5" fill="rgba(0,229,204,0.09)"/>
+
+      <!-- Ears -->
+      <ellipse cx="8"  cy="9" rx="1.6" ry="2.6" fill="#dcdce8"/>
+      <ellipse cx="26" cy="9" rx="1.6" ry="2.6" fill="#dcdce8"/>
+      <ellipse cx="8"  cy="9" rx="0.75" ry="1.4" fill="rgba(255,150,170,0.22)"/>
+      <ellipse cx="26" cy="9" rx="0.75" ry="1.4" fill="rgba(255,150,170,0.22)"/>
+
+      <!-- Head base + 3D shading -->
+      <circle cx="17" cy="9" r="8"  fill="#e4e4f0"/>
+      <circle cx="17" cy="9" r="8"  fill="url(#charHG)"/>
+      <circle cx="17" cy="9" r="8"  stroke="rgba(0,0,0,0.07)" stroke-width="0.6" fill="none"/>
+
+      <!-- Hair — short dark style, covers top of head -->
+      <path d="M9,8.5 Q8.2,0.5 17,0.4 Q25.8,0.5 25,8.5 Q22.5,5 17,5.5 Q11.5,5 9,8.5 Z" fill="#1e1430"/>
+      <!-- Slight front-sweep strand on right for style -->
+      <path d="M19.5,5.2 Q22,4.5 24,7" stroke="#1e1430" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- Hair shine — 3D highlight on left dome -->
+      <path d="M10.5,4.5 Q13,2.2 16,2.8" stroke="rgba(255,255,255,0.22)" stroke-width="0.85" fill="none" stroke-linecap="round"/>
+
+      <!-- Eyebrows — morph per section -->
+      <path id="charBrowL" d="M11.5,6 Q13.5,4.5 15.5,6"   stroke="rgba(70,60,90,0.82)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      <path id="charBrowR" d="M18.5,6 Q20.5,4.5 22.5,6"   stroke="rgba(70,60,90,0.82)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+
+      <!-- Eye whites -->
+      <ellipse cx="13.5" cy="9"   rx="2.1" ry="2.3" fill="white"/>
+      <ellipse cx="20.5" cy="9"   rx="2.1" ry="2.3" fill="white"/>
+      <!-- Teal iris -->
+      <circle  cx="13.8" cy="9.2" r="1.3"  fill="#00e5cc"/>
+      <circle  cx="20.8" cy="9.2" r="1.3"  fill="#00e5cc"/>
+      <!-- Pupil -->
+      <circle  cx="14"   cy="9.4" r="0.6"  fill="#060410"/>
+      <circle  cx="21"   cy="9.4" r="0.6"  fill="#060410"/>
+      <!-- Shine -->
+      <circle  cx="13.2" cy="8.4" r="0.55" fill="white"/>
+      <circle  cx="20.2" cy="8.4" r="0.55" fill="white"/>
+
+      <!-- Blush -->
+      <ellipse cx="11"   cy="11.5" rx="1.8" ry="1"   fill="rgba(255,130,160,0.28)"/>
+      <ellipse cx="23"   cy="11.5" rx="1.8" ry="1"   fill="rgba(255,130,160,0.28)"/>
+      <!-- Nose hint -->
+      <path d="M16.4,12.5 Q17,13.3 17.6,12.5" stroke="rgba(80,60,80,0.25)" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <!-- Mouth — morphs per section -->
+      <path id="charMouth" d="M13,12.5 Q17,15.5 21,12.5" stroke="rgba(70,55,80,0.82)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+
+      <!-- Neck -->
+      <rect x="15.5" y="17" width="3" height="3"  rx="1" fill="#d0d0dc"/>
+
+      <!-- Jacket body — dark charcoal -->
+      <rect x="12" y="19" width="10" height="12" rx="2.5" fill="#1c1a2e" stroke="rgba(80,75,120,0.4)" stroke-width="0.8"/>
+      <!-- Left lapel panel (slightly lighter fold) -->
+      <path d="M12,19.5 L12,25 L15.5,22 L14.8,19.5 Z" fill="#26223a"/>
+      <!-- Right lapel panel -->
+      <path d="M22,19.5 L22,25 L18.5,22 L19.2,19.5 Z" fill="#26223a"/>
+      <!-- Shirt collar — white V between lapels -->
+      <path d="M14.8,19.5 L17,21.8 L19.2,19.5" fill="rgba(235,235,248,0.92)" stroke="none"/>
+      <!-- Tie — teal, from collar-point downward -->
+      <rect x="16.35" y="21.8" width="1.3" height="7" rx="0.5" fill="rgba(0,210,185,0.72)"/>
+      <!-- Tie knot — slightly wider block at top -->
+      <rect x="16.15" y="21.2" width="1.7" height="1.1" rx="0.4" fill="rgba(0,185,162,0.85)"/>
+      <!-- Jacket lapel crease lines -->
+      <line x1="14.8" y1="19.5" x2="12" y2="22.5" stroke="rgba(140,130,170,0.35)" stroke-width="0.5"/>
+      <line x1="19.2" y1="19.5" x2="22" y2="22.5" stroke="rgba(140,130,170,0.35)" stroke-width="0.5"/>
+
+      <!-- Arms -->
+      <line id="charArmL"  x1="12"   y1="22" x2="7"   y2="32" stroke="#b8b8cc"              stroke-width="2.8" stroke-linecap="round"/>
+      <line id="charArmR"  x1="22"   y1="22" x2="27"  y2="32" stroke="#b8b8cc"              stroke-width="2.8" stroke-linecap="round"/>
+      <line id="charArmLh" x1="12"   y1="22" x2="7"   y2="32" stroke="rgba(255,255,255,0.55)" stroke-width="1.1" stroke-linecap="round"/>
+      <line id="charArmRh" x1="22"   y1="22" x2="27"  y2="32" stroke="rgba(255,255,255,0.55)" stroke-width="1.1" stroke-linecap="round"/>
+
+      <!-- Legs -->
+      <line id="charLegL"  x1="14.5" y1="31" x2="12"  y2="45" stroke="#a8a8bc"              stroke-width="2.8" stroke-linecap="round"/>
+      <line id="charLegR"  x1="19.5" y1="31" x2="22"  y2="45" stroke="#a8a8bc"              stroke-width="2.8" stroke-linecap="round"/>
+      <line id="charLegLh" x1="14.5" y1="31" x2="12"  y2="45" stroke="rgba(255,255,255,0.45)" stroke-width="1.1" stroke-linecap="round"/>
+      <line id="charLegRh" x1="19.5" y1="31" x2="22"  y2="45" stroke="rgba(255,255,255,0.45)" stroke-width="1.1" stroke-linecap="round"/>
+
+      <!-- Shoes -->
+      <line id="charFootL" x1="12"   y1="45" x2="8"   y2="49" stroke="rgba(90,85,110,0.88)" stroke-width="2.2" stroke-linecap="round"/>
+      <line id="charFootR" x1="22"   y1="45" x2="26"  y2="49" stroke="rgba(90,85,110,0.88)" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+</div>
+
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-left">Built by <span>Usama Safdar</span> · Portfolio v3.0 · 2025</div>
@@ -2104,6 +2267,246 @@
       }, 45);
     }, 400);
   })();
+
+  // ── Walking Character Scrollbar
+  (function() {
+    const wrap   = document.getElementById('charWrap');
+    const bubble = document.getElementById('charBubble');
+    const armL   = document.getElementById('charArmL');
+    const armR   = document.getElementById('charArmR');
+    const armLh  = document.getElementById('charArmLh');
+    const armRh  = document.getElementById('charArmRh');
+    const legL   = document.getElementById('charLegL');
+    const legR   = document.getElementById('charLegR');
+    const legLh  = document.getElementById('charLegLh');
+    const legRh  = document.getElementById('charLegRh');
+    const footL  = document.getElementById('charFootL');
+    const footR  = document.getElementById('charFootR');
+    const mouth  = document.getElementById('charMouth');
+    const browL  = document.getElementById('charBrowL');
+    const browR  = document.getElementById('charBrowR');
+    const aura   = document.getElementById('charAura');
+    if (!wrap) return;
+
+    const NAV_H = 70, BOT_PAD = 8, CHAR_H = 56;
+
+    // ── Pose library — 34×56 SVG
+    // Attach: ArmL(12,22) ArmR(22,22)  LegL(14.5,31) LegR(19.5,31)
+    // [AL_x2,AL_y2, AR_x2,AR_y2, LL_x2,LL_y2, LR_x2,LR_y2, FL_x2,FL_y2, FR_x2,FR_y2]
+    const P = {
+      stand:     [ 9,31,  25,31,  12,45, 22,45,   8,49, 26,49],  // relaxed
+      walkA:     [ 5,26,  27,23,   8,45, 22,45,   4,47, 25,49],  // walk A
+      walkB:     [ 5,23,  27,26,  10,45, 24,45,   6,49, 27,47],  // walk B
+      think:     [ 9,30,  19,16,  13,45, 21,45,   9,49, 25,49],  // hand to chin
+      celebrate: [ 3,12,  31,12,  13,45, 21,45,   9,49, 25,49],  // both arms V up
+      crossed:   [21,26,  13,26,  13,45, 21,45,   9,49, 25,49],  // arms crossed
+      typing:    [ 7,34,  27,34,  13,45, 21,45,   9,49, 25,49],  // arms fwd typing
+      eureka:    [14,26,  29,11,  13,45, 21,45,   9,49, 25,49],  // hip + arm up
+      point:     [ 9,31,  32,19,  13,45, 21,45,   9,49, 25,49],  // pointing out
+      read:      [14,29,  20,29,  13,45, 21,45,   9,49, 25,49],  // holding book
+      dream:     [ 2,17,  32,17,  13,45, 21,45,   9,49, 25,49],  // arms wide open
+      wave:      [ 9,31,  31,10,  13,45, 21,45,   9,49, 25,49],  // right arm waving high
+    };
+
+    // ── Section configs — 34×56 SVG coordinates
+    // Mouth at y~12.5–15.5  Brows at y~4.5–7  (head cx=17, cy=9, r=8)
+    const SECS = {
+      hero: {
+        pose:'stand', aura:'rgba(0,229,204,0.22)', text:'',
+        browL:'M11.5,6 Q13.5,4.5 15.5,6',   browR:'M18.5,6 Q20.5,4.5 22.5,6',    // neutral arch
+        mouth:'M13,12.5 Q17,15.5 21,12.5'    // big friendly smile
+      },
+      manifesto: {
+        pose:'think', aura:'rgba(155,89,255,0.22)', text:"📖 Usama's Philosophy",
+        browL:'M11.5,6 Q13.5,4.5 15.5,6',   browR:'M18.5,5.5 Q20.5,4 22.5,5.5',  // one brow raised
+        mouth:'M13.5,13 Q17,14.5 20.5,13.5'  // curious slight smile
+      },
+      impact: {
+        pose:'celebrate', aura:'rgba(0,229,204,0.4)', text:'📊 These Numbers',
+        browL:'M11.5,5.2 Q13.5,3.6 15.5,5.2', browR:'M18.5,5.2 Q20.5,3.6 22.5,5.2', // both high
+        mouth:'M12.5,12 Q17,16.5 21.5,12'    // huge grin
+      },
+      missions: {
+        pose:'crossed', aura:'rgba(155,89,255,0.32)', text:'🚀 Man on a Mission',
+        browL:'M11.5,7 Q13.5,5.8 15.5,6.5',  browR:'M18.5,6.5 Q20.5,5.8 22.5,7',  // furrowed V
+        mouth:'M13.5,13.5 Q17,14 20.5,13.5'  // determined flat
+      },
+      command: {
+        pose:'typing', aura:'rgba(80,130,255,0.3)', text:'🔥 He Wants to Learn More',
+        browL:'M11.5,6.8 Q13.5,5.5 15.5,6.3', browR:'M18.5,6.3 Q20.5,5.5 22.5,6.8', // slight furrow
+        mouth:'M13.5,13.5 Q17,14.5 20.5,13.5' // focused
+      },
+      blueprint: {
+        pose:'eureka', aura:'rgba(255,80,180,0.3)', text:'💡 Framework He Believes',
+        browL:'M11.5,6 Q13.5,4.5 15.5,6',   browR:'M18.5,5 Q20.5,3.5 22.5,5',    // one brow WAY up
+        mouth:'M13,12.5 Q17,15.5 21,12.5'    // excited
+      },
+      projects: {
+        pose:'point', aura:'rgba(0,229,204,0.34)', text:'📦 He Shipped This!',
+        browL:'M11.5,5.8 Q13.5,4.3 15.5,5.8', browR:'M18.5,5.5 Q20.5,4 22.5,5.5', // confident arch
+        mouth:'M12.5,12.5 Q17,16 21.5,12.5'  // proud grin
+      },
+      education: {
+        pose:'read', aura:'rgba(255,175,40,0.3)', text:'🧱 His Foundations',
+        browL:'M11.5,6.2 Q13.5,5 15.5,6.2',  browR:'M18.5,6.2 Q20.5,5 22.5,6.2',  // soft studious
+        mouth:'M13.5,13 Q17,15 20.5,13'       // gentle smile
+      },
+      vision: {
+        pose:'dream', aura:'rgba(120,60,255,0.38)', text:'🌍 He Believes in the Future',
+        browL:'M11.5,5.8 Q13.5,4.3 15.5,5.8', browR:'M18.5,5.8 Q20.5,4.3 22.5,5.8', // dreamy raised
+        mouth:'M12.5,12.5 Q17,16.5 21.5,12.5' // wide dreamy smile
+      },
+      contact: {
+        pose:'wave', aura:'rgba(0,210,185,0.34)', text:'🤝✨ Connect with this Amazing Guy',
+        browL:'M11.5,5.5 Q13.5,4 15.5,5.5',  browR:'M18.5,5.5 Q20.5,4 22.5,5.5',  // happiest brows
+        mouth:'M12.5,12 Q17,16.5 21.5,12'     // biggest smile
+      },
+    };
+
+    // ── State
+    let cur  = [...P.stand];
+    let section = 'hero';
+    let walkPhase = 0;
+    let breathePhase = 0;
+    let lastScrollT = Date.now();
+    let bubbleTimer = null;
+    let drag = false, dragY0 = 0, scroll0 = 0;
+
+    function lerp(a,b,t){ return a + (b-a)*t; }
+
+    function setLimbs(pose){
+      // Main limbs
+      armL.setAttribute('x2', pose[0]);  armL.setAttribute('y2', pose[1]);
+      armR.setAttribute('x2', pose[2]);  armR.setAttribute('y2', pose[3]);
+      legL.setAttribute('x2', pose[4]);  legL.setAttribute('y2', pose[5]);
+      legR.setAttribute('x2', pose[6]);  legR.setAttribute('y2', pose[7]);
+      // Highlight lines mirror main limbs exactly (creates 3D tube illusion)
+      if (armLh) { armLh.setAttribute('x2', pose[0]); armLh.setAttribute('y2', pose[1]); }
+      if (armRh) { armRh.setAttribute('x2', pose[2]); armRh.setAttribute('y2', pose[3]); }
+      if (legLh) { legLh.setAttribute('x2', pose[4]); legLh.setAttribute('y2', pose[5]); }
+      if (legRh) { legRh.setAttribute('x2', pose[6]); legRh.setAttribute('y2', pose[7]); }
+      // Feet attach to leg ends (so they always stay connected)
+      footL.setAttribute('x1', pose[4]);  footL.setAttribute('y1', pose[5]);
+      footL.setAttribute('x2', pose[8]);  footL.setAttribute('y2', pose[9]);
+      footR.setAttribute('x1', pose[6]);  footR.setAttribute('y1', pose[7]);
+      footR.setAttribute('x2', pose[10]); footR.setAttribute('y2', pose[11]);
+    }
+
+    function getProgress(){
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      return max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+    }
+
+    function updatePosition(){
+      const p = getProgress();
+      const range = Math.max(window.innerHeight - NAV_H - BOT_PAD - CHAR_H, 1);
+      wrap.style.top = (NAV_H + p * range) + 'px';
+      wrap.classList.toggle('bubble-below', p < 0.22);
+    }
+
+    // ── RAF animation loop
+    function animate(){
+      const scrolling = (Date.now() - lastScrollT) < 140;
+      if (scrolling){
+        // Walk cycle: oscillate between walkA ↔ walkB
+        walkPhase += 0.14;
+        const t = (Math.sin(walkPhase) + 1) / 2;
+        cur = P.walkA.map((v,i) => lerp(v, P.walkB[i], t));
+        // Subtle body tilt while walking
+        const tilt = Math.sin(walkPhase) * 2.5;
+        wrap.style.transform = `translateX(-50%) rotate(${tilt}deg)`;
+      } else {
+        // Ease back to section pose
+        const target = P[SECS[section].pose];
+        cur = cur.map((v,i) => lerp(v, target[i], 0.1));
+        // Gentle breathing bob — makes him feel alive when idle
+        breathePhase += 0.018;
+        const bob = Math.sin(breathePhase) * 2.2;
+        wrap.style.transform = `translateX(-50%) translateY(${bob}px)`;
+      }
+      setLimbs(cur);
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // ── Bubble helpers
+    function showBubble(text, ms){
+      if (!text) { bubble.classList.remove('show'); return; }
+      clearTimeout(bubbleTimer);
+      bubble.textContent = text;
+      bubble.classList.add('show');
+      if (ms) bubbleTimer = setTimeout(() => bubble.classList.remove('show'), ms);
+    }
+
+    // ── Section detection — scroll-position based (reliable on all browsers)
+    const sectionEls = Object.keys(SECS)
+      .map(id => ({ id, el: document.getElementById(id) }))
+      .filter(s => s.el);
+
+    function detectSection() {
+      // Use 40% down from top as the trigger line
+      const line = window.innerHeight * 0.40;
+      let active = sectionEls[0].id;
+      for (const { id, el } of sectionEls) {
+        if (el.getBoundingClientRect().top <= line) active = id;
+        else break;
+      }
+      if (active === section) return;
+      section = active;
+      const cfg = SECS[section];
+      aura.setAttribute('fill',  cfg.aura);
+      mouth.setAttribute('d',      cfg.mouth);
+      browL.setAttribute('d',      cfg.browL);
+      browR.setAttribute('d',      cfg.browR);
+      showBubble(cfg.text, 2800);
+    }
+
+    // ── Scroll → update position + timestamp + section
+    window.addEventListener('scroll', () => {
+      lastScrollT = Date.now();
+      updatePosition();
+      detectSection();
+    }, { passive: true });
+    window.addEventListener('resize', () => { updatePosition(); detectSection(); });
+    updatePosition();
+
+    // ── Drag character to scroll
+    wrap.addEventListener('mousedown', e => {
+      drag = true; dragY0 = e.clientY; scroll0 = window.scrollY;
+      wrap.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', e => {
+      if (!drag) return;
+      const range = Math.max(window.innerHeight - NAV_H - BOT_PAD - CHAR_H, 1);
+      const max   = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo(0, scroll0 + (e.clientY - dragY0) / range * max);
+    });
+    document.addEventListener('mouseup', () => {
+      if (drag){ drag = false; wrap.style.cursor = 'grab'; }
+    });
+
+    // ── Click track to jump (track has pointer-events: all so this fires correctly)
+    document.querySelector('#charBar .char-track').addEventListener('click', e => {
+      const rect  = e.currentTarget.getBoundingClientRect();
+      const p     = Math.max(0, Math.min((e.clientY - rect.top) / rect.height, 1));
+      const max   = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo({ top: p * max, behavior: 'smooth' });
+    });
+
+    // ── Boot: detect current section + set all expressions + welcome bubble
+    (function bootExpressions() {
+      const cfg = SECS[section];
+      aura.setAttribute('fill', cfg.aura);
+      mouth.setAttribute('d',     cfg.mouth);
+      browL.setAttribute('d',     cfg.browL);
+      browR.setAttribute('d',     cfg.browR);
+    })();
+    detectSection();
+    setTimeout(() => showBubble(SECS[section].text, 3000), 1400);
+
+  })();
+
 </script>
 </body>
 </html>
