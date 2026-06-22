@@ -6,7 +6,7 @@
   <title>Usama Safdar</title>
 
   <!-- Favicon — inline data URI for instant browser tab rendering -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='0 0 88 88' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='8' cy='44' r='7' fill='%2300e5cc' opacity='.88'/><line x1='14' y1='44' x2='22' y2='44' stroke='%2300e5cc' stroke-width='1.8' opacity='.5'/><rect x='22' y='26' width='44' height='36' rx='6' stroke='%2300e5cc' stroke-width='2'/><text x='44' y='44' font-family='system-ui' font-weight='700' font-size='18' fill='%2300e5cc' text-anchor='middle' dominant-baseline='central'>US.</text><line x1='66' y1='44' x2='74' y2='44' stroke='%239b59ff' stroke-width='1.8' opacity='.5'/><polygon points='83,44 74,37 74,51' fill='%239b59ff' opacity='.9'/></svg>" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='0 0 88 88' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='13' y='22' width='62' height='44' rx='12' fill='%2300e5cc' fill-opacity='.06' stroke='%2300e5cc' stroke-width='3.4'/><text x='44' y='45' font-family='system-ui' font-weight='800' font-size='26' fill='%2300e5cc' text-anchor='middle' dominant-baseline='central'>US.</text></svg>" />
   <link rel="icon" type="image/svg+xml" href="logo.svg" />
 
   <!-- SEO Meta Tags -->
@@ -30,9 +30,10 @@
   <meta name="twitter:description" content="Production Manager driving operational excellence through leadership, process transformation, and data intelligence." />
   <meta name="twitter:image" content="https://usamasafdar.com/photo.png" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="photo.webp" fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="fonts/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2" crossorigin />
+  <link rel="stylesheet" href="fonts-local.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -58,27 +59,29 @@
       --ease:     cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    html { scroll-behavior: smooth; font-size: 16px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.18) transparent; }
+    html { scroll-behavior: auto; font-size: 16px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.18) transparent; }
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
 
     body {
-      background:
-        radial-gradient(ellipse 80% 50% at 0% 0%,   rgba(155,89,255,0.12) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0,229,204,0.09) 0%, transparent 55%),
-        radial-gradient(ellipse 40% 60% at 75% 5%,  rgba(255,62,181,0.07) 0%, transparent 45%),
-        var(--bg);
+      background: var(--bg);
       color: var(--slate);
       font-family: var(--body);
       overflow-x: hidden;
     }
-
-    /* Hexagonal grid overlay — gives industrial tech feel */
+    /* Ambient glow FIXED to the viewport — identical in every section, no scroll colour-zoning */
+    /* Fixed ambient glow + hex grid — identical in every section, no scroll colour-zoning */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background-image:
+        radial-gradient(ellipse 70% 50% at 12% 0%,   rgba(155,89,255,0.10), transparent 55%),
+        radial-gradient(ellipse 60% 50% at 88% 100%, rgba(0,229,204,0.07),  transparent 55%),
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpolygon points='30,1 59,17 59,35 30,51 1,35 1,17' fill='none' stroke='rgba(155,89,255,0.04)' stroke-width='0.5'/%3E%3C/svg%3E");
-      background-size: 60px 52px;
+      background-size: 100% 100%, 100% 100%, 60px 52px;
       pointer-events: none;
       z-index: 0;
     }
@@ -191,6 +194,18 @@
       text-decoration: none; display: flex; align-items: center;
     }
     .nav-logo svg { height: 34px; width: auto; display: block; }
+    /* ── Live logo animations ── */
+    .lg-pkt-in{transform-box:fill-box;animation:lgPktIn 1.15s linear infinite;}
+    @keyframes lgPktIn{0%{transform:translateX(0);opacity:0;}25%{opacity:1;}80%{opacity:1;}100%{transform:translateX(12px);opacity:0;}}
+    .lg-pkt-out{transform-box:fill-box;animation:lgPktOut 1.15s linear infinite;}
+    @keyframes lgPktOut{0%{transform:translateX(0);opacity:0;}25%{opacity:1;}80%{opacity:1;}100%{transform:translateX(12px);opacity:0;}}
+    .lg-halo{transform-box:fill-box;transform-origin:center;animation:lgHalo 1.9s ease-out infinite;}
+    @keyframes lgHalo{0%{transform:scale(0.55);opacity:0.6;}70%,100%{transform:scale(2.7);opacity:0;}}
+    .lg-glow{animation:lgGlow 3.1s ease-in-out infinite;}
+    @keyframes lgGlow{0%,100%{opacity:0.03;}50%{opacity:0.12;}}
+    .lg-chev{transform-box:fill-box;transform-origin:left center;animation:lgChev 1.9s ease-in-out infinite;}
+    @keyframes lgChev{0%,100%{opacity:0.6;transform:translateX(0);}50%{opacity:1;transform:translateX(1.4px);}}
+    @media(prefers-reduced-motion:reduce){.lg-pkt-in,.lg-pkt-out,.lg-halo,.lg-glow,.lg-chev{animation:none;}}
     .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
     .nav-links a {
       font-family: var(--mono); font-size: 11px; letter-spacing: 1.2px;
@@ -230,8 +245,16 @@
     .section-sub { font-size: 17px; color: var(--slate); line-height: 1.7; max-width: 560px; }
 
     /* reveal animation */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .reveal.visible { opacity: 1; transform: none; }
+    /* ── Accessibility: visible keyboard focus ── */
+    :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+    /* ── Accessibility: respect reduced-motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.16s !important; scroll-behavior: auto !important; }
+      .reveal { transform: none !important; }
+    }
+    .cap-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 6px; }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
@@ -423,7 +446,7 @@
     .hero-name-sig {
       font-family: var(--sans); font-style: italic; font-weight: 300;
       font-size: 22px; letter-spacing: 5px;
-      color: rgba(240,237,255,0.55);
+      color: rgba(240,237,255,0.72);
       text-align: center;
       display: flex; align-items: center; justify-content: center; gap: 14px;
       margin-bottom: 4px;
@@ -639,6 +662,16 @@
       border: 1px solid rgba(0,229,204,0.3); color: var(--teal);
       border-radius: 4px; padding: 2px 7px; letter-spacing: 1px;
     }
+    .i4-done-badge {
+      font-family: var(--mono); font-size: 9px; background: rgba(155,89,255,0.1);
+      border: 1px solid rgba(155,89,255,0.3); color: var(--purple);
+      border-radius: 4px; padding: 2px 7px; letter-spacing: 1px;
+    }
+    .i4-emerging-badge {
+      font-family: var(--mono); font-size: 9px; background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.3); color: var(--amber);
+      border-radius: 4px; padding: 2px 7px; letter-spacing: 1px;
+    }
     .i4-level-desc { font-size: 12px; color: var(--slate2); line-height: 1.5; }
     .i4-connector {
       width: 1px; height: 12px; background: rgba(255,255,255,0.06);
@@ -682,6 +715,32 @@
     }
     .command-inner { max-width: 1100px; margin: 0 auto; }
     .command-header { margin-bottom: 48px; }
+
+    /* ── Command Center — Style A: gradient-glow domain cards ── */
+    .cmd-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
+    .cmd-card { position: relative; background: var(--bg2); border-radius: 18px; padding: 24px; transition: transform 0.3s var(--ease); }
+    .cmd-card::before { content: ''; position: absolute; inset: 0; border-radius: 18px; padding: 1.5px;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+    .cmd-card.t::before { background: linear-gradient(135deg, var(--teal),   transparent 70%); }
+    .cmd-card.p::before { background: linear-gradient(135deg, var(--purple), transparent 70%); }
+    .cmd-card.k::before { background: linear-gradient(135deg, var(--pink),   transparent 70%); }
+    .cmd-card.a::before { background: linear-gradient(135deg, var(--amber),  transparent 70%); }
+    .cmd-card:hover { transform: translateY(-4px); }
+    .cmd-top { display: flex; align-items: center; gap: 11px; margin-bottom: 16px; }
+    .cmd-ico { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .cmd-card.t .cmd-ico { background: rgba(0,229,204,0.14); }
+    .cmd-card.p .cmd-ico { background: rgba(155,89,255,0.14); }
+    .cmd-card.k .cmd-ico { background: rgba(255,62,181,0.14); }
+    .cmd-card.a .cmd-ico { background: rgba(245,158,11,0.14); }
+    .cmd-name { font-family: var(--sans); font-weight: 700; color: var(--white); font-size: 16px; }
+    .cmd-sub { font-family: var(--mono); font-size: 10px; color: var(--slate2); letter-spacing: 1px; margin-top: 2px; }
+    .cmd-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .cmd-chip { font-family: var(--mono); font-size: 11px; color: var(--slate); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 5px 10px; transition: border-color 0.2s, color 0.2s; }
+    .cmd-card.t .cmd-chip:hover { border-color: var(--teal);   color: var(--teal); }
+    .cmd-card.p .cmd-chip:hover { border-color: var(--purple); color: var(--purple); }
+    .cmd-card.k .cmd-chip:hover { border-color: var(--pink);   color: var(--pink); }
+    .cmd-card.a .cmd-chip:hover { border-color: var(--amber);  color: var(--amber); }
+    @media (max-width: 760px) { .cmd-grid { grid-template-columns: 1fr; } }
 
     /* Dashboard chrome */
     .dashboard-chrome {
@@ -746,17 +805,32 @@
     .skill-fill.animated { width: var(--pct); }
 
     .tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+    /* Creative touches on the dashboard panels — gradient accent + sub-label + count */
+    .dash-panel { position: relative; overflow: hidden; }
+    .dash-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+    .dash-panel.t .dash-accent { background: linear-gradient(90deg, var(--teal),   transparent 82%); }
+    .dash-panel.p .dash-accent { background: linear-gradient(90deg, var(--purple), transparent 82%); }
+    .dash-panel.k .dash-accent { background: linear-gradient(90deg, var(--pink),   transparent 82%); }
+    .dash-panel.a .dash-accent { background: linear-gradient(90deg, var(--amber),  transparent 82%); }
+    .dash-count { margin-left: auto; font-family: var(--mono); font-size: 10px; color: var(--slate2); letter-spacing: 1px; }
+    .dash-sub { font-family: var(--mono); font-size: 10px; color: var(--slate2); letter-spacing: 1.5px; text-transform: uppercase; margin: -2px 0 14px; }
+    .dash-panel:hover .dash-accent { height: 3px; }
     .skill-tag {
       font-family: var(--mono); font-size: 11px; color: var(--slate);
       background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 6px; padding: 5px 10px;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      border-radius: 6px; padding: 5px 10px; cursor: default;
+      transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s;
     }
-    .skill-tag:hover { color: var(--teal); border-color: rgba(0,229,204,0.3); background: rgba(0,229,204,0.05); }
     .skill-tag.t { color: rgba(0,229,204,0.8); border-color: rgba(0,229,204,0.2); }
     .skill-tag.p { color: rgba(155,89,255,0.8); border-color: rgba(155,89,255,0.2); }
     .skill-tag.pk { color: rgba(255,62,181,0.8); border-color: rgba(255,62,181,0.2); }
     .skill-tag.a { color: rgba(245,158,11,0.8); border-color: rgba(245,158,11,0.2); }
+    /* Light up in each chip's own colour on hover */
+    .skill-tag:hover     { transform: translateY(-2px); color: var(--white); border-color: rgba(255,255,255,0.32); background: rgba(255,255,255,0.07); }
+    .skill-tag.t:hover   { color: var(--teal);   border-color: var(--teal);   background: rgba(0,229,204,0.12);  box-shadow: 0 0 14px rgba(0,229,204,0.30); }
+    .skill-tag.p:hover   { color: var(--purple); border-color: var(--purple); background: rgba(155,89,255,0.12); box-shadow: 0 0 14px rgba(155,89,255,0.30); }
+    .skill-tag.pk:hover  { color: var(--pink);   border-color: var(--pink);   background: rgba(255,62,181,0.12); box-shadow: 0 0 14px rgba(255,62,181,0.30); }
+    .skill-tag.a:hover   { color: var(--amber);  border-color: var(--amber);  background: rgba(245,158,11,0.12); box-shadow: 0 0 14px rgba(245,158,11,0.30); }
 
     /* ═══════════════════════════════════════
        06 · MISSION LOG
@@ -882,6 +956,98 @@
       font-family: var(--mono); font-size: 10px; color: var(--slate2);
       background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
       border-radius: 4px; padding: 3px 8px;
+    }
+
+    /* ═══════════════════════════════════════
+       07.5 · FEATURED BUILD — SEPO
+    ═══════════════════════════════════════ */
+    #sepo {
+      padding: 100px 80px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      position: relative; overflow: hidden;
+    }
+    #sepo::before { content: none; }
+    .sepo-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+    .sepo-layout {
+      display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px;
+      margin-top: 48px; align-items: center;
+    }
+    /* Video frame */
+    .sepo-video-wrap {
+      position: relative; border-radius: 18px; overflow: hidden;
+      border: 1px solid rgba(0,229,204,0.18);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.03) inset;
+      background: var(--bg2);
+    }
+    .sepo-video-wrap::after {
+      content: ''; position: absolute; inset: 0; border-radius: 18px;
+      box-shadow: inset 0 0 60px rgba(0,229,204,0.05);
+      pointer-events: none;
+    }
+    .sepo-video-wrap video { display: block; width: 100%; height: auto; border-radius: 18px; background: #000; }
+    /* Click-to-load video facade — zero video bytes until played */
+    .sepo-video-facade {
+      display: block; width: 100%; aspect-ratio: 16 / 9; border: none; padding: 0; cursor: pointer;
+      background-size: cover; background-position: center; background-color: var(--bg2);
+      border-radius: 18px; position: relative; overflow: hidden;
+    }
+    .sepo-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 62px; height: 62px; border-radius: 50%;
+      background: rgba(0,229,204,0.92); color: #06121a;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 30px rgba(0,229,204,0.45);
+      transition: transform 0.2s var(--ease), background 0.2s;
+    }
+    .sepo-play svg { margin-left: 3px; }
+    .sepo-video-facade:hover .sepo-play { transform: translate(-50%, -50%) scale(1.08); background: var(--teal); }
+    .sepo-video-badge {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+      color: var(--teal); background: rgba(8,8,15,0.78); backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,229,204,0.25); border-radius: 6px; padding: 5px 10px;
+      pointer-events: none;
+    }
+    /* Content side */
+    .sepo-tagline {
+      font-family: var(--sans); font-size: 17px; font-weight: 600; color: var(--white);
+      line-height: 1.5; margin-bottom: 18px;
+    }
+    .sepo-desc { font-size: 14px; color: var(--slate); line-height: 1.75; margin-bottom: 22px; }
+    .sepo-feats { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+    .sepo-feats li {
+      font-size: 13px; color: var(--slate); padding-left: 22px; position: relative; line-height: 1.55;
+    }
+    .sepo-feats li::before {
+      content: '▸'; position: absolute; left: 0; top: 1px; color: var(--teal); font-size: 11px;
+    }
+    .sepo-metrics {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
+      padding: 20px 0; margin-bottom: 22px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .sepo-m { display: flex; flex-direction: column; gap: 3px; }
+    .sepo-m-num {
+      font-family: var(--sans); font-size: 24px; font-weight: 800;
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .sepo-m-num.alt { background: var(--grad2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .sepo-m-label { font-family: var(--mono); font-size: 10px; color: var(--slate2); letter-spacing: 0.5px; line-height: 1.4; }
+    .sepo-status {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.5px; color: var(--teal);
+      background: rgba(0,229,204,0.08); border: 1px solid rgba(0,229,204,0.25);
+      border-radius: 20px; padding: 5px 14px; margin-bottom: 20px;
+    }
+    .sepo-status .dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--teal);
+      box-shadow: 0 0 8px var(--teal); animation: sepoPulse 2s ease-in-out infinite;
+    }
+    @keyframes sepoPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    .sepo-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    @media (max-width: 860px) {
+      .sepo-layout { grid-template-columns: 1fr; gap: 32px; }
     }
 
     /* ═══════════════════════════════════════
@@ -1076,6 +1242,50 @@
     gtag('js', new Date());
     gtag('config', 'G-QXDSL2ZQ8G');
   </script>
+  <style>
+  /* ===== LIVING CARDS (demo) — BOLD: visible gradient edge + ignite on hover ===== */
+  /* Always-visible gradient border so every card carries colour */
+  .live-card .live-edge{position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:4;
+    opacity:0.4; transition:opacity .35s ease, filter .35s ease;
+    background:linear-gradient(135deg, var(--teal), var(--purple) 55%, var(--pink));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;}
+  .live-card:hover .live-edge{opacity:0.8; filter:drop-shadow(0 0 5px rgba(0,229,204,0.22));}
+  /* Cursor spotlight — brighter + bigger */
+  .live-card .live-light{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;z-index:0;
+    transition:opacity .35s ease;
+    background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%), rgba(0,229,204,0.10), rgba(155,89,255,0.05) 40%, transparent 60%);}
+  .live-card:hover .live-light{opacity:1;}
+  /* Dramatic coloured glow + lift on hover */
+  .live-card:hover{box-shadow:0 26px 60px rgba(0,229,204,0.09), 0 24px 60px rgba(0,0,0,0.5);}
+  .live-card > *:not(.live-light):not(.live-edge){position:relative;z-index:1;}
+
+  /* ===== PERF: drop GPU-heavy blur on cards (solid dark bg → no visible loss, big scroll win) ===== */
+  .project-card, .mission-card, .principle-card, .transform-card, .edu-card,
+  .vision-pillar, .dash-panel, .float-badge, .contact-card, .award-card,
+  .cert-card, .sepo-video-wrap, .blueprint-info-card {
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+  }
+  /* Keep animated/transforming layers on their own compositor layer for 60fps */
+  .live-card, .photo-universe, #charWrap, nav { will-change: transform; }
+  /* PERF: freeze hero spinners/badges once the hero scrolls offscreen */
+  #hero.hero-paused .photo-ring,
+  #hero.hero-paused .photo-orbit-1,
+  #hero.hero-paused .photo-orbit-2,
+  #hero.hero-paused .float-badge { animation-play-state: paused; }
+  </style>
+
+  <!-- ===== Interactive effects (custom cursor, magnetic buttons, word reveal, eyes) ===== -->
+  <style>
+    .btn-primary,.btn-secondary,.nav-cta{will-change:transform;}
+
+    .tc-wordmask{display:inline-block;overflow:hidden;vertical-align:top;}
+    .tc-word{display:inline-block;will-change:transform;}
+
+    .char-iris{transition:transform .12s ease-out;}
+    .char-eye{transform-box:fill-box;transform-origin:center;transition:transform .09s ease;}
+    .char-eye.blink{transform:scaleY(0.1);}
+  </style>
 </head>
 <body>
 
@@ -1083,26 +1293,31 @@
 
 <!-- ── NAVBAR ── -->
 <nav id="navbar">
-  <a href="#hero" class="nav-logo">
-    <svg viewBox="0 0 76 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <a href="#hero" class="nav-logo" aria-label="Usama Safdar — home">
+    <svg viewBox="0 0 86 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Usama Safdar logo">
       <defs>
-        <linearGradient id="nav-ng" x1="0" y1="0" x2="76" y2="0" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#00e5cc"/><stop offset="1" stop-color="#9b59ff"/>
-        </linearGradient>
-        <linearGradient id="nav-tg" x1="22" y1="8" x2="56" y2="32" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#00e5cc"/><stop offset="1" stop-color="#ff3eb5"/>
+        <linearGradient id="lg-grad" x1="0" y1="20" x2="86" y2="20" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#00e5cc"/><stop offset="0.55" stop-color="#9b59ff"/><stop offset="1" stop-color="#ff3eb5"/>
         </linearGradient>
       </defs>
-      <!-- Connector lines -->
-      <line x1="11" y1="20" x2="22" y2="20" stroke="url(#nav-ng)" stroke-width="1.3" opacity="0.5"/>
-      <line x1="56" y1="20" x2="65" y2="20" stroke="url(#nav-ng)" stroke-width="1.3" opacity="0.5"/>
-      <!-- Node 1: input circle -->
-      <circle cx="7" cy="20" r="5.5" fill="#00e5cc" opacity="0.9"/>
-      <!-- Node 2: transformer — larger rect holding US. -->
-      <rect x="22" y="6" width="34" height="28" rx="5" stroke="url(#nav-ng)" stroke-width="1.8"/>
-      <text x="39" y="20" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="13" fill="url(#nav-tg)" text-anchor="middle" dominant-baseline="central" letter-spacing="1">US.</text>
-      <!-- Node 3: output arrow -->
-      <polygon points="74,20 65,14.5 65,25.5" fill="#9b59ff" opacity="0.9"/>
+      <!-- input node + resting halo + ping -->
+      <circle class="lg-halo" cx="7" cy="20" r="3" fill="none" stroke="#00e5cc" stroke-width="1.1"/>
+      <circle cx="7" cy="20" r="5.5" fill="none" stroke="#00e5cc" stroke-width="1" opacity="0.28"/>
+      <circle cx="7" cy="20" r="2.6" fill="#00e5cc"/>
+      <!-- packets flowing in -->
+      <circle class="lg-pkt-in" cx="11" cy="20" r="1.15" fill="url(#lg-grad)" style="animation-delay:0s"/>
+      <circle class="lg-pkt-in" cx="11" cy="20" r="1.15" fill="url(#lg-grad)" style="animation-delay:0.38s"/>
+      <circle class="lg-pkt-in" cx="11" cy="20" r="1.15" fill="url(#lg-grad)" style="animation-delay:0.76s"/>
+      <!-- transformer box: breathing glow + crisp stroke -->
+      <rect class="lg-glow" x="25" y="7" width="36" height="26" rx="8" fill="#00e5cc"/>
+      <rect x="25" y="7" width="36" height="26" rx="8" fill="#00e5cc" fill-opacity="0.02" stroke="url(#lg-grad)" stroke-width="1.6"/>
+      <text x="43" y="20.6" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="13" fill="url(#lg-grad)" text-anchor="middle" dominant-baseline="central" letter-spacing="0.3">US.</text>
+      <!-- packets flowing out -->
+      <circle class="lg-pkt-out" cx="62" cy="20" r="1.15" fill="url(#lg-grad)" style="animation-delay:0.1s"/>
+      <circle class="lg-pkt-out" cx="62" cy="20" r="1.15" fill="url(#lg-grad)" style="animation-delay:0.48s"/>
+      <circle class="lg-pkt-out" cx="62" cy="20" r="1.15" fill="url(#lg-grad)" style="animation-delay:0.86s"/>
+      <!-- output chevron -->
+      <path class="lg-chev" d="M76,15.5 L81,20 L76,24.5" fill="none" stroke="#ff3eb5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
   <ul class="nav-links">
@@ -1192,7 +1407,7 @@
       <div class="photo-orbit-1"></div>
       <div class="photo-orbit-2"></div>
       <div class="photo-frame">
-        <img id="hero-photo" src="photo.png" alt="Usama Safdar" />
+        <img id="hero-photo" src="photo.webp" width="1254" height="1254" decoding="async" fetchpriority="high" alt="Usama Safdar" />
       </div>
       <div class="photo-shadow"></div>
 
@@ -1342,7 +1557,7 @@
 ═══════════════════════════════════════ -->
 <section id="missions">
   <div class="missions-inner">
-    <div class="section-label reveal">06 — Deployment History</div>
+    <div class="section-label reveal">04 — Deployment History</div>
     <h2 class="section-heading reveal reveal-delay-1">Mission <span class="accent">Log</span></h2>
     <p class="section-sub reveal reveal-delay-2">A career built on taking complex operational challenges and building better systems — across manufacturing, public sector technology, and entrepreneurship.</p>
 
@@ -1489,7 +1704,7 @@
 <section id="command">
   <div class="command-inner">
     <div class="command-header">
-      <div class="section-label reveal">06 — Operating Systems</div>
+      <div class="section-label reveal">05 — Operating Systems</div>
       <h2 class="section-heading reveal reveal-delay-1">The <span class="accent2">Command Center</span></h2>
       <p class="section-sub reveal reveal-delay-2">Four interconnected capability stacks — the operating system I bring to every factory floor.</p>
     </div>
@@ -1499,7 +1714,7 @@
         <div class="chrome-dot red"></div>
         <div class="chrome-dot yellow"></div>
         <div class="chrome-dot green"></div>
-        <span class="chrome-title">USAMA_OS · CAPABILITY_MATRIX_v2.6</span>
+        <span class="chrome-title">USAMA_OS · CAPABILITY_MATRIX_v3.0</span>
         <div class="chrome-status">
           <div class="chrome-status-dot"></div>
           ALL SYSTEMS ONLINE
@@ -1507,51 +1722,55 @@
       </div>
 
       <div class="dashboard-grid">
-        <div class="dash-panel">
+        <div class="dash-panel t">
+          <span class="dash-accent"></span>
           <div class="dash-panel-header">
             <div class="dash-panel-title">⚙ Operations Architecture</div>
+            <span class="dash-count">09 MODULES</span>
             <div class="dash-panel-ping"></div>
           </div>
-          <div class="skill-rows">
-            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Lean / 5S / Kaizen</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:95%"></div></div></div>
-            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">OEE & Performance KPIs</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:92%"></div></div></div>
-            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">8D / Root Cause Analysis</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:90%"></div></div></div>
-            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Capacity & Demand Planning</span><span class="skill-pct">87%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:87%"></div></div></div>
-            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Supply Chain Operations</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill teal" style="--pct:80%"></div></div></div>
+          <div class="dash-sub">The factory floor</div>
+          <div class="tag-cloud">
+            <span class="skill-tag t">Lean / 5S / Kaizen</span><span class="skill-tag t">OEE &amp; Performance KPIs</span><span class="skill-tag t">8D / Root Cause Analysis</span><span class="skill-tag t">Capacity &amp; Demand Planning</span><span class="skill-tag t">Supply Chain Operations</span><span class="skill-tag t">Production Scheduling</span><span class="skill-tag t">IATF 16949</span><span class="skill-tag t">SMED</span><span class="skill-tag t">Cross-functional Production</span>
           </div>
         </div>
-        <div class="dash-panel">
+
+        <div class="dash-panel p">
+          <span class="dash-accent"></span>
           <div class="dash-panel-header">
-            <div class="dash-panel-title">◈ Technology & Analytics</div>
+            <div class="dash-panel-title">◈ Data &amp; Intelligence</div>
+            <span class="dash-count">12 MODULES</span>
             <div class="dash-panel-ping purple"></div>
           </div>
-          <div style="font-size:12px;color:var(--slate2);font-family:var(--mono);margin-bottom:14px;letter-spacing:0.5px;">Tools I use to build operational intelligence</div>
+          <div class="dash-sub">The analytics layer</div>
           <div class="tag-cloud">
             <span class="skill-tag p">Python</span><span class="skill-tag p">SQL</span><span class="skill-tag p">Power BI</span><span class="skill-tag p">Machine Learning</span><span class="skill-tag p">NLP / BERT</span><span class="skill-tag p">Pandas / Sklearn</span><span class="skill-tag p">Statistical Analysis</span><span class="skill-tag p">Data Visualization</span><span class="skill-tag p">Predictive Modeling</span><span class="skill-tag p">Excel / Power Query</span><span class="skill-tag p">Process Simulation</span><span class="skill-tag p">Operational Analytics</span>
           </div>
         </div>
-        <div class="dash-panel">
+
+        <div class="dash-panel k">
+          <span class="dash-accent"></span>
           <div class="dash-panel-header">
             <div class="dash-panel-title">⬡ Transformation Toolkit</div>
+            <span class="dash-count">12 MODULES</span>
             <div class="dash-panel-ping pink"></div>
           </div>
+          <div class="dash-sub">How change lands</div>
           <div class="tag-cloud">
             <span class="skill-tag pk">Process Redesign</span><span class="skill-tag pk">Change Management</span><span class="skill-tag pk">Lean Six Sigma</span><span class="skill-tag pk">Operational Excellence</span><span class="skill-tag t">ERP / MES Systems</span><span class="skill-tag t">Digital Reporting</span><span class="skill-tag t">Automation Strategy</span><span class="skill-tag t">Performance Management</span><span class="skill-tag p">Supply Chain Optimization</span><span class="skill-tag p">Reverse Logistics</span><span class="skill-tag p">Service Operations</span><span class="skill-tag p">Continuous Improvement</span>
           </div>
         </div>
-        <div class="dash-panel">
+
+        <div class="dash-panel a">
+          <span class="dash-accent"></span>
           <div class="dash-panel-header">
             <div class="dash-panel-title">◎ Leadership OS</div>
+            <span class="dash-count">09 MODULES</span>
             <div class="dash-panel-ping amber"></div>
           </div>
-          <div class="skill-rows">
-            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Cross-functional Leadership</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill amber" style="--pct:92%"></div></div></div>
-            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Change Management</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill amber" style="--pct:85%"></div></div></div>
-            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Operations Strategy</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill amber" style="--pct:88%"></div></div></div>
-            <div class="skill-row"><div class="skill-row-top"><span class="skill-name">Stakeholder Management</span><span class="skill-pct">86%</span></div><div class="skill-bar"><div class="skill-fill amber" style="--pct:86%"></div></div></div>
-          </div>
-          <div class="tag-cloud" style="margin-top:14px">
-            <span class="skill-tag a">Swedish</span><span class="skill-tag a">English</span><span class="skill-tag a">Urdu/Punjabi</span><span class="skill-tag">Scrum / Agile</span><span class="skill-tag">PMI Methods</span>
+          <div class="dash-sub">How teams run</div>
+          <div class="tag-cloud">
+            <span class="skill-tag a">Cross-functional Leadership</span><span class="skill-tag a">Operations Strategy</span><span class="skill-tag a">Change Management</span><span class="skill-tag a">Stakeholder Management</span><span class="skill-tag a">Team Capability Building</span><span class="skill-tag a">Decision Support</span><span class="skill-tag">Scrum / Agile</span><span class="skill-tag">PMI Methods</span><span class="skill-tag">Operational Excellence</span>
           </div>
         </div>
       </div>
@@ -1564,8 +1783,8 @@
 ═══════════════════════════════════════ -->
 <section id="blueprint">
   <div class="blueprint-inner">
-    <div class="section-label reveal">— Transformation Framework</div>
-    <h2 class="section-heading reveal reveal-delay-1">The <span class="accent">Operations</span><br>Transformation Roadmap</h2>
+    <div class="section-label reveal">06 — Transformation Framework</div>
+    <h2 class="section-heading reveal reveal-delay-1">The <span class="accent">Operations</span> Transformation Roadmap</h2>
     <p class="section-sub reveal reveal-delay-2">A universal framework for taking any operation from reactive to intelligent — applicable across manufacturing, supply chain, service operations, and logistics.</p>
 
     <div class="blueprint-layout">
@@ -1573,7 +1792,7 @@
         <div class="i4-level">
           <div class="i4-level-num">L0</div>
           <div class="i4-level-content">
-            <div class="i4-level-name">Reactive</div>
+            <div class="i4-level-name">Reactive <span class="i4-done-badge">DONE</span></div>
             <div class="i4-level-desc">Decisions driven by experience, not evidence. Processes documented on paper, issues addressed after they occur.</div>
           </div>
         </div>
@@ -1582,25 +1801,25 @@
         <div class="i4-level">
           <div class="i4-level-num">L1</div>
           <div class="i4-level-content">
-            <div class="i4-level-name">Structured</div>
+            <div class="i4-level-name">Structured <span class="i4-done-badge">DONE</span></div>
             <div class="i4-level-desc">Basic digitization, standardized processes, KPI tracking. Data exists but lives in silos — the foundation for everything that follows.</div>
           </div>
         </div>
         <div class="i4-connector"></div>
 
-        <div class="i4-level active">
+        <div class="i4-level">
           <div class="i4-level-num">L2</div>
           <div class="i4-level-content">
-            <div class="i4-level-name">Connected <span class="i4-active-badge">ACTIVE</span></div>
+            <div class="i4-level-name">Connected <span class="i4-done-badge">DONE</span></div>
             <div class="i4-level-desc">Systems communicate with each other. Real-time visibility across operations. Data flows from execution layer to management layer.</div>
           </div>
         </div>
         <div class="i4-connector"></div>
 
-        <div class="i4-level">
+        <div class="i4-level active">
           <div class="i4-level-num">L3</div>
           <div class="i4-level-content">
-            <div class="i4-level-name">Analytical</div>
+            <div class="i4-level-name">Analytical <span class="i4-active-badge">ACTIVE</span></div>
             <div class="i4-level-desc">Historical and predictive analytics shape decisions. Patterns become insights. Optimization shifts from reactive to proactive.</div>
           </div>
         </div>
@@ -1609,7 +1828,7 @@
         <div class="i4-level">
           <div class="i4-level-num">L4</div>
           <div class="i4-level-content">
-            <div class="i4-level-name">Intelligent</div>
+            <div class="i4-level-name">Intelligent <span class="i4-emerging-badge">EMERGING · SEPO</span></div>
             <div class="i4-level-desc">AI surfaces anomalies, suggests actions, automates analysis. The organization starts to reason about itself in real time.</div>
           </div>
         </div>
@@ -1630,7 +1849,7 @@
             <span class="bi-icon">📊</span>
             <div class="bi-title">Where I've Applied This</div>
           </div>
-          <p class="bi-text">Driving the L1→L2 transition in European manufacturing operations — implementing digital reporting, real-time KPI visibility, and data-informed decision-making. The same framework applies whether you're running a factory, a service operation, or a logistics network.</p>
+          <p class="bi-text">Operating at L3 in European manufacturing — predictive analytics now shape daily decisions — and with SEPO, L4 intelligence is already coming online: AI that surfaces anomalies, auto-generates 8D root-cause reports, and recommends the next action. The same framework applies whether you're running a factory, a service operation, or a logistics network.</p>
           <div class="maturity-bar-wrap" id="maturity-wrap">
             <div class="maturity-bar-label">
               <span>Traditional</span><span>Autonomous</span>
@@ -1766,11 +1985,70 @@
 </section>
 
 <!-- ═══════════════════════════════════════
+     07.5 · FEATURED BUILD — SEPO
+═══════════════════════════════════════ -->
+<section id="sepo">
+  <div class="sepo-inner">
+    <div class="section-label reveal">08 — Featured Build</div>
+    <h2 class="section-heading reveal reveal-delay-1">SEPO — <span class="accent">Production Intelligence</span></h2>
+    <p class="section-sub reveal reveal-delay-2">A full-stack platform I designed and built end-to-end — turning raw factory MES data into real-time, action-driven intelligence for a battery-separator production line.</p>
+
+    <div class="sepo-layout">
+      <!-- Video centerpiece -->
+      <div class="sepo-video-wrap reveal reveal-delay-1">
+        <button class="sepo-video-facade" data-video="sepo-demo.mp4" aria-label="Play SEPO overview video" style="background-image:url('sepo-poster.jpg')">
+          <span class="sepo-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="sepo-content reveal reveal-delay-2">
+        <div class="sepo-status"><span class="dot"></span> Live in production</div>
+        <p class="sepo-tagline">SEPO doesn't just show the numbers — it investigates them. Built-in AI finds the root cause, auto-fills the 8D report, and assigns the next action to an owner.</p>
+        <p class="sepo-desc">I reverse-engineered an undocumented manufacturing execution system, mirrored it to the cloud through a self-healing pipeline, and built a bilingual analytics platform spanning ~17 production views. Its AI layer reads every batch as it happens — hunting root cause across the line and turning defects into structured 8D investigations. From slurry batch to packed pallet: one platform, zero blind spots.</p>
+
+        <ul class="sepo-feats">
+          <li><strong>AI root-cause engine</strong> — correlates defects across 10 process dimensions (machine, basefilm age, shift, customer…) and surfaces causes &gt;2σ above baseline</li>
+          <li><strong>One-click 8D reports</strong> — D1–D8 auto-filled from live data, plus an AI deep-analysis report exportable to PDF</li>
+          <li><strong>Defect Pareto + machine heatmap</strong> ranks every defect each shift, with prioritised actions auto-assigned to owners</li>
+          <li><strong>Self-learning knowledge base</strong> — every closed action with its root cause trains the next AI analysis</li>
+          <li>Full-chain barcode traceability — basefilm → coated roll → slit roll → box → pallet, sub-second</li>
+          <li>Live yield-vs-target, slurry batch tracking &amp; shift accountability — no manual entry</li>
+        </ul>
+
+        <div class="sepo-metrics">
+          <div class="sepo-m">
+            <div class="sepo-m-num">8D</div>
+            <div class="sepo-m-label">reports auto-filled D1–D8 by AI</div>
+          </div>
+          <div class="sepo-m">
+            <div class="sepo-m-num alt">10</div>
+            <div class="sepo-m-label">process dimensions correlated for root cause</div>
+          </div>
+          <div class="sepo-m">
+            <div class="sepo-m-num alt">20</div>
+            <div class="sepo-m-label">defect patterns recognised by the AI</div>
+          </div>
+          <div class="sepo-m">
+            <div class="sepo-m-num">5-hop</div>
+            <div class="sepo-m-label">barcode traceability, sub-second</div>
+          </div>
+        </div>
+
+        <div class="sepo-tags">
+          <span class="p-tag">Next.js 15</span><span class="p-tag">TypeScript</span><span class="p-tag">Supabase / PostgreSQL</span><span class="p-tag">Python</span><span class="p-tag">ETL Pipeline</span><span class="p-tag">Recharts</span><span class="p-tag">AI / LLM</span><span class="p-tag">i18n · EN/中文</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
      08 · EDUCATION & AWARDS
 ═══════════════════════════════════════ -->
 <section id="education">
   <div class="edu-inner">
-    <div class="section-label reveal">08 — Academic Foundation</div>
+    <div class="section-label reveal">09 — Academic Foundation</div>
     <h2 class="section-heading reveal reveal-delay-1">Built to <span class="accent2">Learn.</span></h2>
 
     <div class="edu-grid">
@@ -1951,7 +2229,7 @@
 <section id="vision">
   <div class="vision-glow-1"></div>
   <div class="vision-inner">
-    <span class="vision-eyebrow reveal">09 — The Intelligent Organization</span>
+    <span class="vision-eyebrow reveal">10 — The Intelligent Organization</span>
     <h2 class="vision-headline reveal reveal-delay-1">
       Intelligent operations<br>aren't a <span class="grad-text">future state.</span><br>They're an engineering choice.
     </h2>
@@ -1988,7 +2266,7 @@
 ═══════════════════════════════════════ -->
 <section id="contact">
   <div class="contact-inner">
-    <div class="section-label reveal">10 — Initiate Contact</div>
+    <div class="section-label reveal">11 — Initiate Contact</div>
     <h2 class="section-heading reveal reveal-delay-1">Let's <span class="accent">think together.</span></h2>
 
     <div class="contact-layout">
@@ -2111,18 +2389,23 @@
       <path id="charBrowL" d="M11.5,6 Q13.5,4.5 15.5,6"   stroke="rgba(70,60,90,0.82)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
       <path id="charBrowR" d="M18.5,6 Q20.5,4.5 22.5,6"   stroke="rgba(70,60,90,0.82)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
 
-      <!-- Eye whites -->
-      <ellipse cx="13.5" cy="9"   rx="2.1" ry="2.3" fill="white"/>
-      <ellipse cx="20.5" cy="9"   rx="2.1" ry="2.3" fill="white"/>
-      <!-- Teal iris -->
-      <circle  cx="13.8" cy="9.2" r="1.3"  fill="#00e5cc"/>
-      <circle  cx="20.8" cy="9.2" r="1.3"  fill="#00e5cc"/>
-      <!-- Pupil -->
-      <circle  cx="14"   cy="9.4" r="0.6"  fill="#060410"/>
-      <circle  cx="21"   cy="9.4" r="0.6"  fill="#060410"/>
-      <!-- Shine -->
-      <circle  cx="13.2" cy="8.4" r="0.55" fill="white"/>
-      <circle  cx="20.2" cy="8.4" r="0.55" fill="white"/>
+      <!-- Eyes (follow cursor + blink) -->
+      <g class="char-eye" id="charEyeL">
+        <ellipse cx="13.5" cy="9" rx="2.1" ry="2.3" fill="white"/>
+        <g class="char-iris" id="charIrisL">
+          <circle cx="13.8" cy="9.2" r="1.3"  fill="#00e5cc"/>
+          <circle cx="14"   cy="9.4" r="0.6"  fill="#060410"/>
+          <circle cx="13.2" cy="8.4" r="0.55" fill="white"/>
+        </g>
+      </g>
+      <g class="char-eye" id="charEyeR">
+        <ellipse cx="20.5" cy="9" rx="2.1" ry="2.3" fill="white"/>
+        <g class="char-iris" id="charIrisR">
+          <circle cx="20.8" cy="9.2" r="1.3"  fill="#00e5cc"/>
+          <circle cx="21"   cy="9.4" r="0.6"  fill="#060410"/>
+          <circle cx="20.2" cy="8.4" r="0.55" fill="white"/>
+        </g>
+      </g>
 
       <!-- Blush -->
       <ellipse cx="11"   cy="11.5" rx="1.8" ry="1"   fill="rgba(255,130,160,0.28)"/>
@@ -2198,7 +2481,7 @@
   const reveals = document.querySelectorAll('.reveal');
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
   reveals.forEach(el => revealObs.observe(el));
 
   // ── Count-up animation
@@ -2236,32 +2519,53 @@
   }, { threshold: 0.3 });
   fillEls.forEach(el => fillObs.observe(el));
 
-  // ── 3D tilt on photo
+  // ── Living photo — continuous idle float/breathe + smooth cursor tilt
   const photoUniverse = document.querySelector('.photo-universe');
   if (photoUniverse) {
     const scene = photoUniverse.parentElement;
     scene.style.perspective = '1000px';
+    let targetX = 0, targetY = 0, curX = 0, curY = 0, t = Math.random() * 10;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     scene.addEventListener('mousemove', e => {
       const r = photoUniverse.getBoundingClientRect();
-      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-      const dx = (e.clientX - cx) / (r.width / 2);
-      const dy = (e.clientY - cy) / (r.height / 2);
-      photoUniverse.style.transform = `rotateX(${-dy * 8}deg) rotateY(${dx * 10}deg) scale(1.02)`;
-      photoUniverse.style.transition = 'transform 0.1s';
+      const mx = r.left + r.width / 2, my = r.top + r.height / 2;
+      targetX = (e.clientX - mx) / (r.width / 2);
+      targetY = (e.clientY - my) / (r.height / 2);
     });
-    scene.addEventListener('mouseleave', () => {
-      photoUniverse.style.transform = 'rotateX(0) rotateY(0) scale(1)';
-      photoUniverse.style.transition = 'transform 0.5s ease';
-    });
+    scene.addEventListener('mouseleave', () => { targetX = 0; targetY = 0; });
+    // Pause photo + ring animations when the hero scrolls offscreen (perf)
+    let heroVisible = true;
+    const heroEl = document.getElementById('hero');
+    if (heroEl && 'IntersectionObserver' in window) {
+      new IntersectionObserver(es => {
+        heroVisible = es[0].isIntersecting;
+        heroEl.classList.toggle('hero-paused', !heroVisible);
+      }, { threshold: 0 }).observe(heroEl);
+    }
+    (function live() {
+      if (!heroVisible) { requestAnimationFrame(live); return; }   // skip work offscreen
+      curX += (targetX - curX) * 0.06;   // ease toward cursor
+      curY += (targetY - curY) * 0.06;
+      t += 0.018;
+      const floatY  = reduce ? 0 : Math.sin(t) * 6;          // always-on gentle bob
+      const drift   = reduce ? 0 : Math.cos(t * 0.7) * 3;    // subtle side sway
+      const breathe = reduce ? 1 : 1 + Math.sin(t * 0.8) * 0.012; // soft breathing scale
+      photoUniverse.style.transform =
+        `translate3d(${drift}px, ${floatY}px, 0) ` +
+        `rotateX(${-curY * 8}deg) rotateY(${curX * 10}deg) scale(${breathe})`;
+      requestAnimationFrame(live);
+    })();
   }
 
-  // ── Hero name scramble decode reveal
+  // ── Hero name: fast scramble flourish (instant content, never blank)
   (function() {
     const el = document.querySelector('.hero-name-sig');
     if (!el) return;
     const final = 'Usama Safdar';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = final; return; }
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#@$&';
-    el.textContent = '';
+    const scrambled = () => final.split('').map(c => c === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)]).join('');
+    el.textContent = scrambled();                 // show something immediately, never blank
     let step = 0;
     setTimeout(() => {
       const iv = setInterval(() => {
@@ -2270,10 +2574,10 @@
           if (i < step) return c;
           return chars[Math.floor(Math.random() * chars.length)];
         }).join('');
-        step += 0.3;
+        step += 0.8;                              // faster decode
         if (step >= final.length) { el.textContent = final; clearInterval(iv); }
-      }, 45);
-    }, 400);
+      }, 28);
+    }, 80);                                       // start almost immediately
   })();
 
   // ── Walking Character Scrollbar
@@ -2353,6 +2657,11 @@
         pose:'point', aura:'rgba(0,229,204,0.34)', text:'📦 He Shipped This!',
         browL:'M11.5,5.8 Q13.5,4.3 15.5,5.8', browR:'M18.5,5.5 Q20.5,4 22.5,5.5', // confident arch
         mouth:'M12.5,12.5 Q17,16 21.5,12.5'  // proud grin
+      },
+      sepo: {
+        pose:'celebrate', aura:'rgba(0,229,204,0.4)', text:'🏭 His Production Brain',
+        browL:'M11.5,5.2 Q13.5,3.6 15.5,5.2', browR:'M18.5,5.2 Q20.5,3.6 22.5,5.2', // both high
+        mouth:'M12.5,12 Q17,16.5 21.5,12'    // huge grin
       },
       education: {
         pose:'read', aura:'rgba(255,175,40,0.3)', text:'🧱 His Foundations',
@@ -2499,7 +2808,7 @@
       const rect  = e.currentTarget.getBoundingClientRect();
       const p     = Math.max(0, Math.min((e.clientY - rect.top) / rect.height, 1));
       const max   = document.documentElement.scrollHeight - window.innerHeight;
-      window.scrollTo({ top: p * max, behavior: 'smooth' });
+      if (window.lenis) window.lenis.scrollTo(p * max); else window.scrollTo({ top: p * max, behavior: 'smooth' });
     });
 
     // ── Boot: detect current section + set all expressions + welcome bubble
@@ -2515,6 +2824,203 @@
 
   })();
 
+</script>
+<script>
+/* ===== LIVING CARDS (demo) — restrained cursor tilt + spotlight + lift ===== */
+(function(){
+  if(!matchMedia('(pointer:fine)').matches) return;            // skip on touch devices
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var sel = '.project-card,.mission-card,.principle-card,.transform-card,.edu-card,.vision-pillar';
+  document.querySelectorAll(sel).forEach(function(c){
+    c.classList.add('live-card');
+    if(getComputedStyle(c).position === 'static') c.style.position = 'relative';
+    var light = document.createElement('span'); light.className = 'live-light'; c.appendChild(light);
+    var edge = document.createElement('span'); edge.className = 'live-edge'; c.appendChild(edge);
+    c.addEventListener('mousemove', function(e){
+      var r = c.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width/2)) / (r.width/2);
+      var dy = (e.clientY - (r.top + r.height/2)) / (r.height/2);
+      c.style.transition = 'none';                              // instant follow while moving
+      c.style.transform = 'perspective(800px) rotateX(' + (-dy*6).toFixed(2) + 'deg) rotateY(' + (dx*6).toFixed(2) + 'deg) translateY(-10px)';
+      c.style.setProperty('--mx', ((e.clientX - r.left)/r.width*100).toFixed(1) + '%');
+      c.style.setProperty('--my', ((e.clientY - r.top)/r.height*100).toFixed(1) + '%');
+    }, {passive:true});
+    c.addEventListener('mouseleave', function(){
+      c.style.transition = 'transform .5s cubic-bezier(0.22,1,0.36,1)';  // easeOutQuint settle
+      c.style.transform = '';
+    });
+  });
+})();
+</script>
+<script>
+/* ===== Mission nav — click to jump + active highlight on scroll ===== */
+(function(){
+  var items = Array.prototype.slice.call(document.querySelectorAll('#missions .mission-nav-item'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#missions .mission-card'));
+  if(!items.length || !cards.length) return;
+  var NAV = 96;
+  items.forEach(function(it, i){
+    it.style.cursor = 'pointer';
+    it.addEventListener('click', function(){
+      var card = cards[i];
+      if(!card) return;
+      if (window.lenis) { window.lenis.scrollTo(card, { offset: -NAV }); return; }
+      var y = card.getBoundingClientRect().top + window.scrollY - NAV;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
+  function syncActive(){
+    var line = window.innerHeight * 0.35, active = 0;
+    cards.forEach(function(c, i){ if(c.getBoundingClientRect().top <= line) active = i; });
+    items.forEach(function(it, i){ it.classList.toggle('active-nav', i === active); });
+  }
+  window.addEventListener('scroll', syncActive, {passive:true});
+  syncActive();
+})();
+</script>
+<script>
+/* SEPO video — load the 9 MB file only when the user clicks play */
+(function(){
+  var f = document.querySelector('.sepo-video-facade');
+  if (!f) return;
+  f.addEventListener('click', function(){
+    var v = document.createElement('video');
+    v.src = f.getAttribute('data-video');
+    v.controls = true; v.autoplay = true; v.setAttribute('playsinline', '');
+    v.style.cssText = 'display:block;width:100%;height:auto;border-radius:18px;background:#000;';
+    f.replaceWith(v);
+    v.play().catch(function(){});
+  }, { once: true });
+})();
+</script>
+
+<!-- ===== Interactive effects: custom cursor, magnetic buttons, word reveal, eyes ===== -->
+<script>
+if (window.matchMedia('(pointer:fine)').matches) {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* EFFECT 2 — magnetic + tactile buttons */
+  if (!reduceMotion) {
+    (function(){
+      document.querySelectorAll('.btn-primary,.btn-secondary,.nav-cta').forEach(function(btn){
+        btn.addEventListener('mousemove',function(e){
+          var r=btn.getBoundingClientRect();
+          var x=e.clientX-(r.left+r.width/2), y=e.clientY-(r.top+r.height/2);
+          btn.style.transition='transform .08s';
+          btn.style.transform='translate('+(x*0.35).toFixed(1)+'px,'+(y*0.35).toFixed(1)+'px)';
+        });
+        btn.addEventListener('mouseleave',function(){
+          btn.style.transition='transform .5s cubic-bezier(0.34,1.56,0.64,1)';
+          btn.style.transform='translate(0,0)';
+        });
+        btn.addEventListener('mousedown',function(){ btn.style.transform+=' scale(0.93)'; });
+        btn.addEventListener('mouseup',function(){ btn.style.transform=btn.style.transform.replace(' scale(0.93)',''); });
+      });
+    })();
+  }
+
+  /* EFFECT 3 — heading word-reveal */
+  if (!reduceMotion) {
+    (function(){
+      var heads=document.querySelectorAll('.section-heading, .hero-headline');
+      function splitInto(el){
+        el.classList.remove('reveal','reveal-delay-1','reveal-delay-2','reveal-delay-3','reveal-delay-4','reveal-delay-5');
+        el.style.opacity='1';el.style.transform='none';
+        var src=el.cloneNode(true);
+        var out=document.createElement('span');
+        function walk(node,dest){
+          node.childNodes.forEach(function(n){
+            if(n.nodeType===3){
+              n.textContent.split(/(\s+)/).forEach(function(tok){
+                if(tok==='')return;
+                if(/^\s+$/.test(tok)){dest.appendChild(document.createTextNode(tok));return;}
+                var mask=document.createElement('span');mask.className='tc-wordmask';
+                var w=document.createElement('span');w.className='tc-word';w.textContent=tok;
+                mask.appendChild(w);dest.appendChild(mask);
+              });
+            } else if(n.nodeType===1){
+              if(n.tagName==='BR'){ dest.appendChild(n.cloneNode(false)); return; }
+              // styled inline (e.g. gradient keyword) reveals as ONE unit so its fill survives
+              var mask=document.createElement('span');mask.className='tc-wordmask';
+              var unit=n.cloneNode(true);unit.classList.add('tc-word');
+              mask.appendChild(unit);dest.appendChild(mask);
+            }
+          });
+        }
+        walk(src,out);
+        el.innerHTML=out.innerHTML;
+        return el.querySelectorAll('.tc-word');
+      }
+      function prime(words){words.forEach(function(w){w.style.transform='translateY(110%)';w.style.opacity='0';});}
+      function play(words){words.forEach(function(w,i){w.style.transition='transform .6s '+(i*55)+'ms cubic-bezier(0.16,1,0.3,1), opacity .6s '+(i*55)+'ms cubic-bezier(0.16,1,0.3,1)';w.style.transform='translateY(0)';w.style.opacity='1';});}
+      var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){play(e.target.__words);io.unobserve(e.target);}});},{threshold:0.2});
+      function inView(el){var r=el.getBoundingClientRect();return r.top < innerHeight*0.92 && r.bottom > 0;}
+      heads.forEach(function(h){var words=splitInto(h);prime(words);h.__words=words;
+        if(inView(h)){ play(words); } else { io.observe(h); }   // above-fold plays now; rest on scroll-in
+      });
+      // safety net: never leave a visible heading invisible
+      setTimeout(function(){heads.forEach(function(h){if(h.__words&&h.__words[0]&&getComputedStyle(h.__words[0]).opacity==='0'&&inView(h)){play(h.__words);}});},1800);
+    })();
+  }
+
+  /* EFFECT 4c — character eyes follow cursor + blink */
+  (function(){
+    var irisL=document.getElementById('charIrisL'),irisR=document.getElementById('charIrisR');
+    var eyeL=document.getElementById('charEyeL'),eyeR=document.getElementById('charEyeR');
+    var wrap=document.getElementById('charWrap');
+    if(!irisL||!wrap)return;
+    var svg=wrap.querySelector('svg');
+    // Cache the eye centre; only re-measure when the character actually moves (scroll/resize)
+    var cx=0, cy=0;
+    function measure(){ var r=svg.getBoundingClientRect(); cx=r.left+r.width/2; cy=r.top+r.height*0.16; }
+    measure();
+    addEventListener('scroll', measure, {passive:true});
+    addEventListener('resize', measure);
+    // mousemove now does cheap math only — no layout read
+    addEventListener('mousemove',function(e){
+      var a=Math.atan2(e.clientY-cy, e.clientX-cx);
+      var dx=(Math.cos(a)*0.8).toFixed(2), dy=(Math.sin(a)*0.8).toFixed(2);
+      irisL.style.transform='translate('+dx+'px,'+dy+'px)';
+      irisR.style.transform='translate('+dx+'px,'+dy+'px)';
+    },{passive:true});
+    function blink(){
+      eyeL.classList.add('blink');eyeR.classList.add('blink');
+      setTimeout(function(){eyeL.classList.remove('blink');eyeR.classList.remove('blink');},110);
+      setTimeout(blink, 2600+Math.random()*3200);
+    }
+    setTimeout(blink, 2800);
+  })();
+}
+</script>
+
+<!-- ===== Buttery smooth scroll — Lenis (keeps character, reveals, nav working) ===== -->
+<script src="lib/lenis.min.js"></script>
+<script>
+(function(){
+  if (typeof window.Lenis === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var lenis = new Lenis({
+    lerp: 0.075,                 // continuous smoothing — buttery glide between sections
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    touchMultiplier: 1.6,
+    syncTouch: false            // keep native momentum on touch devices
+  });
+  window.lenis = lenis;
+  function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  // Route every in-page anchor link through Lenis for buttery jumps
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var href = a.getAttribute('href');
+      if (!href || href.length < 2) return;
+      var el = document.querySelector(href);
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el, { offset: -76 });
+    });
+  });
+})();
 </script>
 </body>
 </html>
